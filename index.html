@@ -7,1175 +7,300 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Didact+Gothic&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --navy: #0a1628;
-    --gold: #b8942a;
-    --gold-light: #d4af37;
-    --gold-pale: #f0e6c8;
-    --white: #faf8f4;
-    --cream: #f5f0e8;
-    --gray-light: #e8e4dc;
-    --gray-mid: #9a9590;
-    --text: #1a1612;
-    --red: #8b1a1a;
-  }
+:root{--navy:#0a1628;--gold:#b8942a;--gold-light:#d4af37;--gold-pale:#f0e6c8;--white:#faf8f4;--cream:#f5f0e8;--gray-light:#e8e4dc;--gray-mid:#9a9590;--text:#1a1612;--red:#8b1a1a;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'Didact Gothic',sans-serif;background:var(--white);color:var(--text);overflow-x:hidden;}
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+/* TICKER */
+.ticker{background:var(--navy);color:var(--gold-light);font-size:11px;letter-spacing:2px;text-transform:uppercase;padding:8px 0;overflow:hidden;white-space:nowrap;}
+.ticker-inner{display:inline-block;animation:ticker 25s linear infinite;}
+.ticker-inner span{margin:0 40px;}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
-  html { scroll-behavior: smooth; }
+/* HEADER */
+header{background:var(--white);border-bottom:1px solid var(--gray-light);position:sticky;top:0;z-index:1000;}
+.header-inner{max-width:1300px;margin:0 auto;padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:72px;}
+.logo{text-align:center;cursor:pointer;}
+.logo-main{font-family:'Cinzel',serif;font-size:20px;font-weight:700;letter-spacing:6px;color:var(--navy);text-transform:uppercase;}
+.logo-sub{font-family:'Cormorant Garamond',serif;font-size:10px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;}
+nav{display:flex;gap:28px;align-items:center;}
+nav a{font-family:'Didact Gothic',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text);text-decoration:none;cursor:pointer;transition:color .2s;padding:4px 0;border-bottom:1px solid transparent;}
+nav a:hover,nav a.active{color:var(--gold);border-bottom-color:var(--gold);}
 
-  body {
-    font-family: 'Didact Gothic', sans-serif;
-    background: var(--white);
-    color: var(--text);
-    overflow-x: hidden;
-  }
+/* CART BUTTON in nav */
+.cart-nav-btn{position:relative;background:none;border:none;cursor:pointer;display:flex;align-items:center;gap:8px;font-family:'Didact Gothic',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text);padding:4px 0;transition:color .2s;}
+.cart-nav-btn:hover{color:var(--gold);}
+.cart-count{background:var(--gold);color:var(--navy);border-radius:50%;width:18px;height:18px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;display:none;}
+.cart-count.show{display:flex;}
+.order-btn{background:var(--navy);color:var(--white);border:none;padding:10px 22px;font-family:'Didact Gothic',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:background .2s;}
+.order-btn:hover{background:var(--gold);}
 
-  /* ===== TICKER ===== */
-  .ticker {
-    background: var(--navy);
-    color: var(--gold-light);
-    font-family: 'Didact Gothic', sans-serif;
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    padding: 8px 0;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-  .ticker-inner {
-    display: inline-block;
-    animation: ticker 25s linear infinite;
-  }
-  .ticker-inner span { margin: 0 40px; }
-  @keyframes ticker {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-50%); }
-  }
+/* PAGES */
+.page{display:none;}.page.active{display:block;}
 
-  /* ===== HEADER ===== */
-  header {
-    background: var(--white);
-    border-bottom: 1px solid var(--gray-light);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-  }
-  .header-inner {
-    max-width: 1300px;
-    margin: 0 auto;
-    padding: 0 40px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 72px;
-  }
-  .logo {
-    text-align: center;
-    cursor: pointer;
-  }
-  .logo-main {
-    font-family: 'Cinzel', serif;
-    font-size: 20px;
-    font-weight: 700;
-    letter-spacing: 6px;
-    color: var(--navy);
-    text-transform: uppercase;
-  }
-  .logo-sub {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 10px;
-    letter-spacing: 4px;
-    color: var(--gold);
-    text-transform: uppercase;
-  }
-  nav {
-    display: flex;
-    gap: 36px;
-    align-items: center;
-  }
-  nav a {
-    font-family: 'Didact Gothic', sans-serif;
-    font-size: 11px;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    color: var(--text);
-    text-decoration: none;
-    cursor: pointer;
-    transition: color 0.2s;
-    padding: 4px 0;
-    border-bottom: 1px solid transparent;
-  }
-  nav a:hover, nav a.active { color: var(--gold); border-bottom-color: var(--gold); }
-  .cart-btn {
-    background: var(--navy);
-    color: var(--white);
-    border: none;
-    padding: 10px 22px;
-    font-family: 'Didact Gothic', sans-serif;
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-  .cart-btn:hover { background: var(--gold); }
+/* HERO */
+.hero{background:var(--navy);min-height:88vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 100%,rgba(184,148,42,.12) 0%,transparent 70%),linear-gradient(180deg,rgba(10,22,40,0) 60%,rgba(10,22,40,1) 100%);}
+.hero-badge{font-family:'Cinzel',serif;font-size:10px;letter-spacing:5px;color:var(--gold);text-transform:uppercase;margin-bottom:28px;border:1px solid rgba(184,148,42,.4);padding:8px 24px;position:relative;z-index:1;animation:fadeInUp 1s ease both;}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(52px,8vw,110px);font-weight:300;color:var(--white);line-height:1;letter-spacing:-1px;position:relative;z-index:1;animation:fadeInUp 1s .2s ease both;}
+.hero h1 em{font-style:italic;color:var(--gold-light);}
+.hero-sub{font-size:12px;letter-spacing:4px;color:rgba(240,230,200,.7);text-transform:uppercase;margin-top:24px;position:relative;z-index:1;animation:fadeInUp 1s .4s ease both;}
+.hero-cta{margin-top:52px;display:flex;gap:16px;position:relative;z-index:1;animation:fadeInUp 1s .6s ease both;}
+.btn-primary{background:var(--gold);color:var(--navy);border:none;padding:16px 44px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:all .25s;}
+.btn-primary:hover{background:var(--gold-light);transform:translateY(-2px);box-shadow:0 8px 30px rgba(184,148,42,.4);}
+.btn-outline{background:transparent;color:var(--white);border:1px solid rgba(255,255,255,.4);padding:16px 44px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:all .25s;}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);}
+.hero-divider{width:1px;height:80px;background:linear-gradient(to bottom,transparent,var(--gold),transparent);margin:60px auto 0;position:relative;z-index:1;animation:fadeInUp 1s .8s ease both;}
 
-  /* ===== PAGES ===== */
-  .page { display: none; }
-  .page.active { display: block; }
+/* SECTIONS */
+.section{max-width:1300px;margin:0 auto;padding:100px 40px;}
+.section-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:5px;color:var(--gold);text-transform:uppercase;margin-bottom:16px;}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4vw,58px);font-weight:300;color:var(--navy);line-height:1.1;margin-bottom:20px;}
+.section-title em{font-style:italic;color:var(--gold);}
+.section-desc{font-size:14px;line-height:1.8;color:var(--gray-mid);max-width:520px;margin-bottom:60px;}
 
-  /* ===== HOME PAGE ===== */
-  .hero {
-    background: var(--navy);
-    min-height: 88vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .hero::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: 
-      radial-gradient(ellipse 80% 60% at 50% 100%, rgba(184,148,42,0.12) 0%, transparent 70%),
-      linear-gradient(180deg, rgba(10,22,40,0) 60%, rgba(10,22,40,1) 100%);
-  }
-  .hero-badge {
-    font-family: 'Cinzel', serif;
-    font-size: 10px;
-    letter-spacing: 5px;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 28px;
-    border: 1px solid rgba(184,148,42,0.4);
-    padding: 8px 24px;
-    position: relative;
-    z-index: 1;
-    animation: fadeInUp 1s ease both;
-  }
-  .hero h1 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(52px, 8vw, 110px);
-    font-weight: 300;
-    color: var(--white);
-    line-height: 1;
-    letter-spacing: -1px;
-    position: relative;
-    z-index: 1;
-    animation: fadeInUp 1s 0.2s ease both;
-  }
-  .hero h1 em {
-    font-style: italic;
-    color: var(--gold-light);
-  }
-  .hero-sub {
-    font-family: 'Didact Gothic', sans-serif;
-    font-size: 12px;
-    letter-spacing: 4px;
-    color: rgba(240,230,200,0.7);
-    text-transform: uppercase;
-    margin-top: 24px;
-    position: relative;
-    z-index: 1;
-    animation: fadeInUp 1s 0.4s ease both;
-  }
-  .hero-cta {
-    margin-top: 52px;
-    display: flex;
-    gap: 16px;
-    position: relative;
-    z-index: 1;
-    animation: fadeInUp 1s 0.6s ease both;
-  }
-  .btn-primary {
-    background: var(--gold);
-    color: var(--navy);
-    border: none;
-    padding: 16px 44px;
-    font-family: 'Cinzel', serif;
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.25s;
-  }
-  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(184,148,42,0.4); }
-  .btn-outline {
-    background: transparent;
-    color: var(--white);
-    border: 1px solid rgba(255,255,255,0.4);
-    padding: 16px 44px;
-    font-family: 'Cinzel', serif;
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.25s;
-  }
-  .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+/* PRODUCT CARDS */
+.products-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--gray-light);}
+.product-card{background:var(--white);cursor:pointer;overflow:hidden;transition:transform .4s;}
+.product-card:hover{transform:scale(.99);}
+.product-card:hover .product-img{transform:scale(1.04);}
+.product-img-wrap{overflow:hidden;aspect-ratio:4/3;background:var(--cream);}
+.product-img{width:100%;height:100%;object-fit:cover;transition:transform .6s ease;}
+.product-info{padding:32px 36px;border-top:1px solid var(--gray-light);}
+.product-tag{font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:8px;}
+.product-name{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--navy);margin-bottom:6px;}
+.product-price{font-family:'Cinzel',serif;font-size:18px;font-weight:600;color:var(--gold);}
+.product-cta{display:inline-block;margin-top:20px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);border-bottom:1px solid var(--navy);padding-bottom:2px;transition:all .2s;}
+.product-card:hover .product-cta{color:var(--gold);border-color:var(--gold);}
+.product-card.gold-card .product-info{background:var(--navy);border-top:none;}
+.product-card.gold-card .product-name{color:var(--white);}
+.product-card.gold-card .product-cta{color:var(--gold-light);border-color:var(--gold-light);}
 
-  .hero-divider {
-    width: 1px;
-    height: 80px;
-    background: linear-gradient(to bottom, transparent, var(--gold), transparent);
-    margin: 60px auto 0;
-    position: relative;
-    z-index: 1;
-    animation: fadeInUp 1s 0.8s ease both;
-  }
+/* VALUES */
+.values{background:var(--navy);padding:100px 0;}
+.values-inner{max-width:1300px;margin:0 auto;padding:0 40px;}
+.values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:60px;margin-top:60px;}
+.value-num{font-family:'Cormorant Garamond',serif;font-size:48px;font-style:italic;color:rgba(184,148,42,.3);display:block;line-height:1;margin-bottom:8px;}
+.value-title{font-family:'Cinzel',serif;font-size:13px;letter-spacing:3px;color:var(--gold-light);text-transform:uppercase;margin-bottom:14px;}
+.value-desc{font-size:13px;line-height:1.9;color:rgba(240,230,200,.6);}
 
-  /* Collection preview */
-  .section {
-    max-width: 1300px;
-    margin: 0 auto;
-    padding: 100px 40px;
-  }
-  .section-label {
-    font-family: 'Cinzel', serif;
-    font-size: 10px;
-    letter-spacing: 5px;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 16px;
-  }
-  .section-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(36px, 4vw, 58px);
-    font-weight: 300;
-    color: var(--navy);
-    line-height: 1.1;
-    margin-bottom: 20px;
-  }
-  .section-title em { font-style: italic; color: var(--gold); }
-  .section-desc {
-    font-size: 14px;
-    line-height: 1.8;
-    color: var(--gray-mid);
-    max-width: 520px;
-    margin-bottom: 60px;
-    letter-spacing: 0.3px;
-  }
+/* PAGE HERO */
+.page-hero{background:var(--navy);text-align:center;padding:80px 40px 70px;}
+.page-hero h2{font-family:'Cormorant Garamond',serif;font-size:clamp(42px,5vw,72px);font-weight:300;color:var(--white);}
+.page-hero h2 em{font-style:italic;color:var(--gold-light);}
+.page-hero p{margin-top:16px;font-size:12px;letter-spacing:3px;color:rgba(240,230,200,.5);text-transform:uppercase;}
 
-  .products-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2px;
-    background: var(--gray-light);
-  }
-  .product-card {
-    background: var(--white);
-    cursor: pointer;
-    overflow: hidden;
-    transition: transform 0.4s;
-    position: relative;
-  }
-  .product-card:hover { transform: scale(0.99); }
-  .product-card:hover .product-img { transform: scale(1.04); }
-  .product-img-wrap {
-    overflow: hidden;
-    aspect-ratio: 4/3;
-    background: var(--cream);
-  }
-  .product-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.6s ease;
-  }
-  .product-info {
-    padding: 32px 36px;
-    border-top: 1px solid var(--gray-light);
-  }
-  .product-tag {
-    font-family: 'Cinzel', serif;
-    font-size: 9px;
-    letter-spacing: 3px;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-  .product-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 28px;
-    font-weight: 300;
-    color: var(--navy);
-    margin-bottom: 6px;
-  }
-  .product-price {
-    font-family: 'Cinzel', serif;
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--gold);
-  }
-  .product-cta {
-    display: inline-block;
-    margin-top: 20px;
-    font-family: 'Didact Gothic', sans-serif;
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--navy);
-    border-bottom: 1px solid var(--navy);
-    padding-bottom: 2px;
-    transition: all 0.2s;
-  }
-  .product-card:hover .product-cta { color: var(--gold); border-color: var(--gold); }
+/* PRODUCTS FULL */
+.products-full{max-width:1300px;margin:80px auto;padding:0 40px;display:grid;grid-template-columns:1fr 1fr;gap:60px;}
+.product-full-card{cursor:pointer;transition:all .3s;}
+.product-full-card:hover{transform:translateY(-6px);}
+.product-full-gallery{position:relative;overflow:hidden;background:var(--cream);}
+.product-full-img{width:100%;aspect-ratio:1;object-fit:cover;display:block;}
+.product-full-badge{position:absolute;top:20px;right:20px;background:var(--navy);color:var(--gold);font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;padding:6px 14px;text-transform:uppercase;}
+.product-full-badge.gold{background:var(--gold);color:var(--navy);}
+.product-full-body{padding:32px 0;border-bottom:1px solid var(--gray-light);}
+.product-full-name{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;color:var(--navy);margin-bottom:6px;}
+.product-full-ref{font-size:11px;letter-spacing:2px;color:var(--gray-mid);text-transform:uppercase;margin-bottom:20px;}
+.product-full-price{font-family:'Cinzel',serif;font-size:28px;font-weight:600;color:var(--gold);margin-bottom:20px;}
+.product-full-desc{font-size:13px;line-height:1.9;color:var(--gray-mid);margin-bottom:28px;}
+.btn-discover{background:var(--navy);color:var(--white);border:none;padding:15px 40px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:all .25s;width:100%;}
+.btn-discover:hover{background:var(--gold);color:var(--navy);}
 
-  /* Gold card */
-  .product-card.gold-card .product-info { background: var(--navy); border-top: none; }
-  .product-card.gold-card .product-name { color: var(--white); }
-  .product-card.gold-card .product-cta { color: var(--gold-light); border-color: var(--gold-light); }
+/* PRODUCT DETAIL OVERLAY */
+#product-detail{position:fixed;inset:0;background:var(--white);z-index:2000;overflow-y:auto;display:none;animation:slideIn .4s ease;}
+#product-detail.open{display:block;}
+@keyframes slideIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.detail-close{position:fixed;top:28px;right:40px;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gray-mid);cursor:pointer;border:1px solid var(--gray-light);padding:10px 20px;background:var(--white);transition:all .2s;z-index:2001;}
+.detail-close:hover{color:var(--navy);border-color:var(--navy);}
+.detail-inner{max-width:1200px;margin:0 auto;padding:80px 40px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
+.detail-main-img{width:100%;object-fit:cover;aspect-ratio:1;}
+.detail-thumbs{display:flex;gap:12px;margin-top:12px;}
+.detail-thumb{width:80px;height:80px;object-fit:cover;cursor:pointer;border:2px solid transparent;transition:all .2s;}
+.detail-thumb.active,.detail-thumb:hover{border-color:var(--gold);}
+.detail-info{padding-top:20px;}
+.detail-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:4px;color:var(--gold);text-transform:uppercase;margin-bottom:12px;}
+.detail-name{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:300;color:var(--navy);line-height:1;margin-bottom:8px;}
+.detail-ref{font-size:11px;letter-spacing:2px;color:var(--gray-mid);text-transform:uppercase;margin-bottom:28px;}
+.detail-price{font-family:'Cinzel',serif;font-size:36px;font-weight:600;color:var(--gold);margin-bottom:28px;}
+.detail-divider{height:1px;background:var(--gray-light);margin:28px 0;}
+.detail-desc{font-size:14px;line-height:1.9;color:var(--gray-mid);margin-bottom:36px;}
 
-  /* Values section */
-  .values {
-    background: var(--navy);
-    padding: 100px 0;
-  }
-  .values-inner {
-    max-width: 1300px;
-    margin: 0 auto;
-    padding: 0 40px;
-  }
-  .values-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 60px;
-    margin-top: 60px;
-  }
-  .value-item { }
-  .value-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 48px;
-    font-style: italic;
-    color: rgba(184,148,42,0.3);
-    display: block;
-    line-height: 1;
-    margin-bottom: 8px;
-  }
-  .value-title {
-    font-family: 'Cinzel', serif;
-    font-size: 13px;
-    letter-spacing: 3px;
-    color: var(--gold-light);
-    text-transform: uppercase;
-    margin-bottom: 14px;
-  }
-  .value-desc {
-    font-size: 13px;
-    line-height: 1.9;
-    color: rgba(240,230,200,0.6);
-    letter-spacing: 0.3px;
-  }
+/* SUPPLEMENTS */
+.supplements{background:var(--cream);border:1px solid var(--gray-light);padding:28px;margin-bottom:32px;}
+.supplements-title{font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;color:var(--navy);text-transform:uppercase;margin-bottom:20px;display:flex;align-items:center;gap:10px;}
+.supplements-title::after{content:'';flex:1;height:1px;background:var(--gray-light);}
+.supplement-item{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--gray-light);cursor:pointer;transition:all .2s;}
+.supplement-item:last-child{border-bottom:none;}
+.supplement-item:hover .supp-check{border-color:var(--gold);}
+.supplement-item.selected .supp-check{background:var(--gold);border-color:var(--gold);}
+.supplement-item.selected .supp-check::after{content:'✓';color:var(--white);font-size:12px;}
+.supp-check{width:22px;height:22px;border:2px solid var(--gray-light);border-radius:2px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.supp-info{flex:1;}
+.supp-name{font-family:'Cinzel',serif;font-size:11px;letter-spacing:1px;color:var(--navy);display:block;margin-bottom:3px;}
+.supp-desc{font-size:11px;color:var(--gray-mid);}
+.supp-price{font-family:'Cinzel',serif;font-size:13px;font-weight:600;color:var(--gold);}
+.detail-total{display:flex;justify-content:space-between;align-items:center;padding:20px 0;border-top:2px solid var(--navy);border-bottom:2px solid var(--navy);margin-bottom:24px;}
+.total-label{font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--navy);}
+.total-amount{font-family:'Cinzel',serif;font-size:28px;font-weight:600;color:var(--navy);}
+.btn-add-cart{width:100%;background:var(--navy);color:var(--white);border:none;padding:18px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:4px;text-transform:uppercase;cursor:pointer;transition:all .25s;margin-bottom:12px;}
+.btn-add-cart:hover{background:var(--gold);color:var(--navy);transform:translateY(-2px);}
 
-  /* ===== PRODUCTS PAGE ===== */
-  .page-hero {
-    background: var(--navy);
-    text-align: center;
-    padding: 80px 40px 70px;
-  }
-  .page-hero h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(42px, 5vw, 72px);
-    font-weight: 300;
-    color: var(--white);
-    letter-spacing: -0.5px;
-  }
-  .page-hero h2 em { font-style: italic; color: var(--gold-light); }
-  .page-hero p {
-    margin-top: 16px;
-    font-size: 12px;
-    letter-spacing: 3px;
-    color: rgba(240,230,200,0.5);
-    text-transform: uppercase;
-  }
+/* ABOUT */
+.about-hero{background:var(--navy);padding:120px 40px;text-align:center;position:relative;overflow:hidden;}
+.about-hero::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(184,148,42,.08) 0%,transparent 70%);}
+.about-hero h2{font-family:'Cormorant Garamond',serif;font-size:clamp(48px,6vw,88px);font-weight:300;font-style:italic;color:var(--white);position:relative;z-index:1;}
+.about-content{max-width:1100px;margin:0 auto;padding:100px 40px;}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center;margin-bottom:100px;}
+.about-text h3{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:300;color:var(--navy);margin-bottom:24px;line-height:1.2;}
+.about-text h3 em{font-style:italic;color:var(--gold);}
+.about-text p{font-size:14px;line-height:2;color:var(--gray-mid);margin-bottom:20px;}
+.about-visual{background:var(--cream);aspect-ratio:4/5;overflow:hidden;}
+.about-visual img{width:100%;height:100%;object-fit:cover;}
+.about-quote{text-align:center;padding:80px 0;border-top:1px solid var(--gray-light);border-bottom:1px solid var(--gray-light);margin:60px 0;}
+.about-quote blockquote{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,3vw,42px);font-weight:300;font-style:italic;color:var(--navy);line-height:1.4;max-width:800px;margin:0 auto 20px;}
+.about-quote cite{font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;font-style:normal;}
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--gray-light);margin-top:80px;}
+.stat-item{background:var(--navy);padding:50px 40px;text-align:center;}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:64px;font-weight:300;font-style:italic;color:var(--gold-light);display:block;line-height:1;margin-bottom:12px;}
+.stat-label{font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;color:rgba(240,230,200,.6);text-transform:uppercase;}
 
-  .products-full {
-    max-width: 1300px;
-    margin: 80px auto;
-    padding: 0 40px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 60px;
-  }
-  .product-full-card {
-    cursor: pointer;
-    transition: all 0.3s;
-  }
-  .product-full-card:hover { transform: translateY(-6px); }
-  .product-full-gallery {
-    position: relative;
-    overflow: hidden;
-    background: var(--cream);
-  }
-  .product-full-img {
-    width: 100%;
-    aspect-ratio: 1;
-    object-fit: cover;
-    display: block;
-  }
-  .product-full-badge {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: var(--navy);
-    color: var(--gold);
-    font-family: 'Cinzel', serif;
-    font-size: 9px;
-    letter-spacing: 2px;
-    padding: 6px 14px;
-    text-transform: uppercase;
-  }
-  .product-full-badge.gold { background: var(--gold); color: var(--navy); }
-  .product-full-body {
-    padding: 32px 0;
-    border-bottom: 1px solid var(--gray-light);
-  }
-  .product-full-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 36px;
-    font-weight: 300;
-    color: var(--navy);
-    margin-bottom: 6px;
-  }
-  .product-full-ref {
-    font-size: 11px;
-    letter-spacing: 2px;
-    color: var(--gray-mid);
-    text-transform: uppercase;
-    margin-bottom: 20px;
-  }
-  .product-full-price {
-    font-family: 'Cinzel', serif;
-    font-size: 28px;
-    font-weight: 600;
-    color: var(--gold);
-    margin-bottom: 20px;
-  }
-  .product-full-desc {
-    font-size: 13px;
-    line-height: 1.9;
-    color: var(--gray-mid);
-    margin-bottom: 28px;
-  }
-  .btn-discover {
-    background: var(--navy);
-    color: var(--white);
-    border: none;
-    padding: 15px 40px;
-    font-family: 'Cinzel', serif;
-    font-size: 10px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.25s;
-    width: 100%;
-    text-align: center;
-  }
-  .btn-discover:hover { background: var(--gold); color: var(--navy); }
+/* ===== CART PAGE ===== */
+.cart-page-inner{max-width:1100px;margin:0 auto;padding:80px 40px;}
+.cart-empty{text-align:center;padding:120px 40px;}
+.cart-empty-icon{font-size:64px;margin-bottom:24px;opacity:.3;}
+.cart-empty h3{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:300;color:var(--navy);margin-bottom:16px;}
+.cart-empty p{font-size:14px;color:var(--gray-mid);margin-bottom:40px;}
+.cart-layout{display:grid;grid-template-columns:1fr 380px;gap:60px;align-items:start;}
+.cart-items-col{}
+.cart-item{display:flex;gap:24px;padding:28px 0;border-bottom:1px solid var(--gray-light);}
+.cart-item-img{width:110px;height:110px;object-fit:cover;background:var(--cream);flex-shrink:0;}
+.cart-item-info{flex:1;}
+.cart-item-name{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:var(--navy);margin-bottom:4px;}
+.cart-item-ref{font-size:11px;letter-spacing:1px;color:var(--gray-mid);text-transform:uppercase;margin-bottom:12px;}
+.cart-item-addons{margin-top:8px;}
+.cart-addon{font-size:11px;color:var(--gray-mid);display:flex;justify-content:space-between;margin-bottom:4px;}
+.cart-item-total{font-family:'Cinzel',serif;font-size:20px;font-weight:600;color:var(--gold);margin-top:12px;}
+.cart-item-remove{background:none;border:none;font-size:11px;letter-spacing:1px;color:var(--gray-mid);cursor:pointer;text-transform:uppercase;margin-top:8px;text-decoration:underline;display:block;}
+.cart-item-remove:hover{color:var(--red);}
 
-  /* ===== PRODUCT DETAIL (modal-like page) ===== */
-  #product-detail {
-    position: fixed;
-    inset: 0;
-    background: var(--white);
-    z-index: 2000;
-    overflow-y: auto;
-    display: none;
-    animation: slideIn 0.4s ease;
-  }
-  #product-detail.open { display: block; }
-  @keyframes slideIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .detail-close {
-    position: fixed;
-    top: 28px;
-    right: 40px;
-    font-family: 'Didact Gothic', sans-serif;
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--gray-mid);
-    cursor: pointer;
-    border: 1px solid var(--gray-light);
-    padding: 10px 20px;
-    background: var(--white);
-    transition: all 0.2s;
-    z-index: 2001;
-  }
-  .detail-close:hover { color: var(--navy); border-color: var(--navy); }
-  .detail-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 80px 40px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: start;
-  }
-  .detail-gallery { position: relative; }
-  .detail-main-img {
-    width: 100%;
-    object-fit: cover;
-    aspect-ratio: 1;
-    cursor: pointer;
-    transition: all 0.3s;
-  }
-  .detail-thumbs {
-    display: flex;
-    gap: 12px;
-    margin-top: 12px;
-  }
-  .detail-thumb {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    cursor: pointer;
-    border: 2px solid transparent;
-    transition: all 0.2s;
-  }
-  .detail-thumb.active, .detail-thumb:hover { border-color: var(--gold); }
-  .detail-info { padding-top: 20px; }
-  .detail-label {
-    font-family: 'Cinzel', serif;
-    font-size: 9px;
-    letter-spacing: 4px;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 12px;
-  }
-  .detail-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 52px;
-    font-weight: 300;
-    color: var(--navy);
-    line-height: 1;
-    margin-bottom: 8px;
-  }
-  .detail-ref {
-    font-size: 11px;
-    letter-spacing: 2px;
-    color: var(--gray-mid);
-    text-transform: uppercase;
-    margin-bottom: 28px;
-  }
-  .detail-price {
-    font-family: 'Cinzel', serif;
-    font-size: 36px;
-    font-weight: 600;
-    color: var(--gold);
-    margin-bottom: 28px;
-  }
-  .detail-divider {
-    height: 1px;
-    background: var(--gray-light);
-    margin: 28px 0;
-  }
-  .detail-desc {
-    font-size: 14px;
-    line-height: 1.9;
-    color: var(--gray-mid);
-    margin-bottom: 36px;
-  }
+/* Cart summary */
+.cart-summary{background:var(--cream);padding:36px;position:sticky;top:100px;}
+.cart-summary-title{font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--navy);margin-bottom:24px;padding-bottom:16px;border-bottom:2px solid var(--navy);}
+.cart-summary-line{display:flex;justify-content:space-between;margin-bottom:12px;font-size:13px;color:var(--gray-mid);}
+.cart-summary-total{display:flex;justify-content:space-between;padding-top:16px;border-top:2px solid var(--navy);margin-top:8px;margin-bottom:28px;}
+.cart-summary-total-label{font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);}
+.cart-summary-total-amount{font-family:'Cinzel',serif;font-size:22px;font-weight:600;color:var(--navy);}
+.btn-checkout{width:100%;background:var(--navy);color:var(--white);border:none;padding:18px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:4px;text-transform:uppercase;cursor:pointer;transition:all .25s;margin-bottom:12px;}
+.btn-checkout:hover{background:var(--gold);color:var(--navy);}
+.btn-continue{width:100%;background:transparent;color:var(--navy);border:1px solid var(--gray-light);padding:14px;font-family:'Cinzel',serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;transition:all .25s;}
+.btn-continue:hover{border-color:var(--navy);}
 
-  /* Supplements */
-  .supplements {
-    background: var(--cream);
-    border: 1px solid var(--gray-light);
-    padding: 28px;
-    margin-bottom: 32px;
-  }
-  .supplements-title {
-    font-family: 'Cinzel', serif;
-    font-size: 10px;
-    letter-spacing: 3px;
-    color: var(--navy);
-    text-transform: uppercase;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .supplements-title::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--gray-light);
-  }
-  .supplement-item {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    padding: 14px 0;
-    border-bottom: 1px solid var(--gray-light);
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .supplement-item:last-child { border-bottom: none; }
-  .supplement-item:hover .supp-check { border-color: var(--gold); }
-  .supplement-item.selected .supp-check {
-    background: var(--gold);
-    border-color: var(--gold);
-  }
-  .supplement-item.selected .supp-check::after {
-    content: '✓';
-    color: var(--white);
-    font-size: 12px;
-  }
-  .supp-check {
-    width: 22px;
-    height: 22px;
-    border: 2px solid var(--gray-light);
-    border-radius: 2px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-  }
-  .supp-info { flex: 1; }
-  .supp-name {
-    font-family: 'Cinzel', serif;
-    font-size: 11px;
-    letter-spacing: 1px;
-    color: var(--navy);
-    display: block;
-    margin-bottom: 3px;
-  }
-  .supp-desc {
-    font-size: 11px;
-    color: var(--gray-mid);
-  }
-  .supp-price {
-    font-family: 'Cinzel', serif;
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--gold);
-  }
+/* CHECKOUT */
+.checkout-layout{display:grid;grid-template-columns:1fr 440px;min-height:100vh;}
+.checkout-form-side{padding:60px;border-right:1px solid var(--gray-light);}
+.checkout-summary-side{background:var(--cream);padding:60px 48px;position:sticky;top:72px;align-self:start;max-height:calc(100vh - 72px);overflow-y:auto;}
+.checkout-steps{display:flex;gap:0;margin-bottom:48px;border-bottom:1px solid var(--gray-light);padding-bottom:28px;}
+.checkout-step{font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gray-mid);padding-right:32px;position:relative;}
+.checkout-step.active{color:var(--navy);}
+.checkout-step.done{color:var(--gold);}
+.checkout-step::after{content:'→';position:absolute;right:12px;color:var(--gray-light);}
+.checkout-step:last-child::after{display:none;}
+.form-section-title{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--navy);margin-bottom:32px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.form-row.full{grid-template-columns:1fr;}
+.form-group{margin-bottom:20px;}
+.form-group label{display:block;font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:var(--navy);text-transform:uppercase;margin-bottom:8px;}
+.form-group input,.form-group select{width:100%;border:1px solid var(--gray-light);padding:14px 16px;font-family:'Didact Gothic',sans-serif;font-size:14px;color:var(--text);background:var(--white);outline:none;transition:border-color .2s;-webkit-appearance:none;}
+.form-group input:focus,.form-group select:focus{border-color:var(--navy);}
+.form-group input.error{border-color:var(--red)!important;}
+.error-msg{font-size:11px;color:var(--red);margin-top:6px;display:none;}
+.error-msg.show{display:block;}
+.card-input-wrap{position:relative;}
+.card-icon{position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:20px;opacity:.4;}
+.card-brands{display:flex;gap:8px;margin-bottom:20px;}
+.card-brand{border:1px solid var(--gray-light);padding:6px 12px;font-size:11px;color:var(--gray-mid);letter-spacing:1px;}
+.card-brand.active{border-color:var(--navy);color:var(--navy);}
+.secure-badge{display:flex;align-items:center;gap:10px;margin-top:20px;padding:14px;background:rgba(10,22,40,.04);font-size:11px;color:var(--gray-mid);}
+.btn-pay{width:100%;background:var(--navy);color:var(--white);border:none;padding:20px;font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;cursor:pointer;margin-top:28px;transition:all .25s;}
+.btn-pay:hover{background:var(--gold);color:var(--navy);}
+.btn-pay::before{content:'🔒 ';font-size:14px;}
+.summary-title{font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--navy);margin-bottom:28px;padding-bottom:20px;border-bottom:2px solid var(--navy);}
+.summary-item{display:flex;gap:16px;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--gray-light);}
+.summary-img{width:80px;height:80px;object-fit:cover;background:var(--cream);flex-shrink:0;}
+.summary-item-info{flex:1;}
+.summary-item-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;color:var(--navy);margin-bottom:4px;}
+.summary-item-detail{font-size:11px;color:var(--gray-mid);line-height:1.6;}
+.summary-item-price{font-family:'Cinzel',serif;font-size:16px;font-weight:600;color:var(--gold);}
+.summary-line{display:flex;justify-content:space-between;margin-bottom:12px;font-size:13px;color:var(--gray-mid);}
+.summary-total{display:flex;justify-content:space-between;padding-top:20px;border-top:2px solid var(--navy);margin-top:8px;}
+.summary-total-label{font-family:'Cinzel',serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);}
+.summary-total-amount{font-family:'Cinzel',serif;font-size:22px;font-weight:600;color:var(--navy);}
 
-  .detail-total {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px 0;
-    border-top: 2px solid var(--navy);
-    border-bottom: 2px solid var(--navy);
-    margin-bottom: 24px;
-  }
-  .total-label {
-    font-family: 'Cinzel', serif;
-    font-size: 11px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--navy);
-  }
-  .total-amount {
-    font-family: 'Cinzel', serif;
-    font-size: 28px;
-    font-weight: 600;
-    color: var(--navy);
-  }
-  .btn-add-cart {
-    width: 100%;
-    background: var(--navy);
-    color: var(--white);
-    border: none;
-    padding: 18px;
-    font-family: 'Cinzel', serif;
-    font-size: 11px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.25s;
-    margin-bottom: 12px;
-  }
-  .btn-add-cart:hover { background: var(--gold); color: var(--navy); transform: translateY(-2px); }
+/* SUCCESS */
+#success-page{display:none;min-height:80vh;align-items:center;justify-content:center;text-align:center;padding:80px 40px;flex-direction:column;}
+#success-page.show{display:flex;}
+.success-icon{width:80px;height:80px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 32px;animation:popIn .5s ease;}
+@keyframes popIn{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+.success-title{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:300;font-style:italic;color:var(--navy);margin-bottom:16px;}
+.success-sub{font-size:13px;letter-spacing:2px;color:var(--gray-mid);text-transform:uppercase;margin-bottom:40px;}
+.success-order{font-family:'Cinzel',serif;font-size:11px;letter-spacing:3px;color:var(--gold);border:1px solid var(--gold-pale);padding:12px 24px;margin-bottom:32px;}
 
-  /* ===== ABOUT PAGE ===== */
-  .about-hero {
-    background: var(--navy);
-    padding: 120px 40px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .about-hero::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(184,148,42,0.08) 0%, transparent 70%);
-  }
-  .about-hero h2 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(48px, 6vw, 88px);
-    font-weight: 300;
-    font-style: italic;
-    color: var(--white);
-    position: relative;
-    z-index: 1;
-  }
-  .about-content {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 100px 40px;
-  }
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 100px;
-    align-items: center;
-    margin-bottom: 100px;
-  }
-  .about-text h3 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 42px;
-    font-weight: 300;
-    color: var(--navy);
-    margin-bottom: 24px;
-    line-height: 1.2;
-  }
-  .about-text h3 em { font-style: italic; color: var(--gold); }
-  .about-text p {
-    font-size: 14px;
-    line-height: 2;
-    color: var(--gray-mid);
-    margin-bottom: 20px;
-  }
-  .about-visual {
-    background: var(--cream);
-    aspect-ratio: 4/5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .about-visual img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  .about-quote {
-    text-align: center;
-    padding: 80px 0;
-    border-top: 1px solid var(--gray-light);
-    border-bottom: 1px solid var(--gray-light);
-    margin: 60px 0;
-  }
-  .about-quote blockquote {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(24px, 3vw, 42px);
-    font-weight: 300;
-    font-style: italic;
-    color: var(--navy);
-    line-height: 1.4;
-    max-width: 800px;
-    margin: 0 auto 20px;
-  }
-  .about-quote cite {
-    font-family: 'Cinzel', serif;
-    font-size: 10px;
-    letter-spacing: 3px;
-    color: var(--gold);
-    text-transform: uppercase;
-    font-style: normal;
-  }
-  .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2px;
-    background: var(--gray-light);
-    margin-top: 80px;
-  }
-  .stat-item {
-    background: var(--navy);
-    padding: 50px 40px;
-    text-align: center;
-  }
-  .stat-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 64px;
-    font-weight: 300;
-    font-style: italic;
-    color: var(--gold-light);
-    display: block;
-    line-height: 1;
-    margin-bottom: 12px;
-  }
-  .stat-label {
-    font-family: 'Cinzel', serif;
-    font-size: 10px;
-    letter-spacing: 3px;
-    color: rgba(240,230,200,0.6);
-    text-transform: uppercase;
-  }
+/* CONTACT PAGE */
+.contact-hero{background:var(--navy);padding:100px 40px;text-align:center;position:relative;overflow:hidden;}
+.contact-hero::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:500px;height:500px;background:radial-gradient(circle,rgba(184,148,42,.08) 0%,transparent 70%);}
+.contact-hero h2{font-family:'Cormorant Garamond',serif;font-size:clamp(42px,5vw,78px);font-weight:300;font-style:italic;color:var(--white);position:relative;z-index:1;}
+.contact-layout{max-width:1100px;margin:80px auto;padding:0 40px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
+.contact-info h3{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;color:var(--navy);margin-bottom:24px;}
+.contact-info h3 em{font-style:italic;color:var(--gold);}
+.contact-info p{font-size:14px;line-height:1.9;color:var(--gray-mid);margin-bottom:36px;}
+.contact-detail{display:flex;gap:16px;align-items:flex-start;margin-bottom:24px;}
+.contact-icon{width:44px;height:44px;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.contact-detail-text{}
+.contact-detail-label{font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:4px;}
+.contact-detail-val{font-size:14px;color:var(--navy);}
+.contact-form-wrap{background:var(--cream);padding:48px;}
+.contact-form-title{font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--navy);margin-bottom:32px;padding-bottom:20px;border-bottom:1px solid var(--gray-light);}
+.contact-form .form-group{margin-bottom:20px;}
+.contact-form label{display:block;font-family:'Cinzel',serif;font-size:9px;letter-spacing:2px;color:var(--navy);text-transform:uppercase;margin-bottom:8px;}
+.contact-form input,.contact-form select,.contact-form textarea{width:100%;border:1px solid var(--gray-light);padding:14px 16px;font-family:'Didact Gothic',sans-serif;font-size:14px;color:var(--text);background:var(--white);outline:none;transition:border-color .2s;-webkit-appearance:none;resize:vertical;}
+.contact-form input:focus,.contact-form select:focus,.contact-form textarea:focus{border-color:var(--navy);}
+.contact-form input.error,.contact-form textarea.error{border-color:var(--red)!important;}
+.contact-form .error-msg{font-size:11px;color:var(--red);margin-top:6px;display:none;}
+.contact-form .error-msg.show{display:block;}
+.btn-send{width:100%;background:var(--navy);color:var(--white);border:none;padding:18px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:4px;text-transform:uppercase;cursor:pointer;margin-top:8px;transition:all .25s;}
+.btn-send:hover{background:var(--gold);color:var(--navy);}
+.contact-success{display:none;text-align:center;padding:40px 0;}
+.contact-success.show{display:block;}
+.contact-success-icon{font-size:48px;margin-bottom:16px;}
+.contact-success h4{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--navy);margin-bottom:8px;}
+.contact-success p{font-size:13px;color:var(--gray-mid);}
 
-  /* ===== CHECKOUT PAGE ===== */
-  .checkout-layout {
-    display: grid;
-    grid-template-columns: 1fr 440px;
-    min-height: 100vh;
-  }
-  .checkout-form-side {
-    padding: 60px;
-    border-right: 1px solid var(--gray-light);
-  }
-  .checkout-summary-side {
-    background: var(--cream);
-    padding: 60px 48px;
-    position: sticky;
-    top: 72px;
-    align-self: start;
-    max-height: calc(100vh - 72px);
-    overflow-y: auto;
-  }
-  .checkout-steps {
-    display: flex;
-    gap: 0;
-    margin-bottom: 48px;
-    border-bottom: 1px solid var(--gray-light);
-    padding-bottom: 28px;
-  }
-  .checkout-step {
-    font-family: 'Cinzel', serif;
-    font-size: 9px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--gray-mid);
-    padding-right: 32px;
-    position: relative;
-    cursor: pointer;
-  }
-  .checkout-step.active { color: var(--navy); }
-  .checkout-step.done { color: var(--gold); }
-  .checkout-step::after {
-    content: '→';
-    position: absolute;
-    right: 12px;
-    color: var(--gray-light);
-  }
-  .checkout-step:last-child::after { display: none; }
+/* FOOTER */
+footer{background:var(--navy);padding:60px 40px 30px;}
+.footer-inner{max-width:1300px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:60px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.1);}
+.footer-brand .logo-main{color:var(--white);font-size:18px;}
+.footer-desc{font-size:12px;line-height:1.8;color:rgba(240,230,200,.5);margin-top:16px;max-width:280px;}
+.footer-col h4{font-family:'Cinzel',serif;font-size:9px;letter-spacing:3px;color:var(--gold);text-transform:uppercase;margin-bottom:20px;}
+.footer-col a{display:block;font-size:12px;color:rgba(240,230,200,.5);text-decoration:none;margin-bottom:10px;cursor:pointer;transition:color .2s;}
+.footer-col a:hover{color:var(--gold);}
+.footer-bottom{max-width:1300px;margin:24px auto 0;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:rgba(240,230,200,.3);letter-spacing:1px;}
 
-  .form-section-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 32px;
-    font-weight: 300;
-    color: var(--navy);
-    margin-bottom: 32px;
-  }
-  .form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-  }
-  .form-row.full { grid-template-columns: 1fr; }
-  .form-group {
-    margin-bottom: 20px;
-    position: relative;
-  }
-  .form-group label {
-    display: block;
-    font-family: 'Cinzel', serif;
-    font-size: 9px;
-    letter-spacing: 2px;
-    color: var(--navy);
-    text-transform: uppercase;
-    margin-bottom: 8px;
-  }
-  .form-group input, .form-group select {
-    width: 100%;
-    border: 1px solid var(--gray-light);
-    padding: 14px 16px;
-    font-family: 'Didact Gothic', sans-serif;
-    font-size: 14px;
-    color: var(--text);
-    background: var(--white);
-    outline: none;
-    transition: border-color 0.2s;
-    -webkit-appearance: none;
-  }
-  .form-group input:focus, .form-group select:focus { border-color: var(--navy); }
-  .form-group input.error { border-color: var(--red) !important; }
-  .error-msg {
-    font-size: 11px;
-    color: var(--red);
-    margin-top: 6px;
-    display: none;
-    font-family: 'Didact Gothic', sans-serif;
-  }
-  .error-msg.show { display: block; }
+@keyframes fadeInUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 
-  /* Card inputs */
-  .card-input-wrap {
-    position: relative;
-  }
-  .card-icon {
-    position: absolute;
-    right: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 20px;
-    opacity: 0.4;
-  }
-  .card-brands {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 20px;
-  }
-  .card-brand {
-    border: 1px solid var(--gray-light);
-    padding: 6px 12px;
-    font-size: 11px;
-    color: var(--gray-mid);
-    letter-spacing: 1px;
-    font-family: 'Didact Gothic', sans-serif;
-  }
-  .card-brand.active { border-color: var(--navy); color: var(--navy); }
-
-  .secure-badge {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 20px;
-    padding: 14px;
-    background: rgba(10,22,40,0.04);
-    font-size: 11px;
-    color: var(--gray-mid);
-    letter-spacing: 0.5px;
-  }
-  .secure-badge span { font-size: 16px; }
-
-  .btn-pay {
-    width: 100%;
-    background: var(--navy);
-    color: var(--white);
-    border: none;
-    padding: 20px;
-    font-family: 'Cinzel', serif;
-    font-size: 12px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    cursor: pointer;
-    margin-top: 28px;
-    transition: all 0.25s;
-    position: relative;
-    overflow: hidden;
-  }
-  .btn-pay:hover { background: var(--gold); color: var(--navy); }
-  .btn-pay::before {
-    content: '🔒 ';
-    font-size: 14px;
-  }
-
-  /* Summary */
-  .summary-title {
-    font-family: 'Cinzel', serif;
-    font-size: 10px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    color: var(--navy);
-    margin-bottom: 28px;
-    padding-bottom: 20px;
-    border-bottom: 2px solid var(--navy);
-  }
-  .summary-item {
-    display: flex;
-    gap: 16px;
-    margin-bottom: 20px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid var(--gray-light);
-  }
-  .summary-img {
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    background: var(--cream);
-    flex-shrink: 0;
-  }
-  .summary-item-info { flex: 1; }
-  .summary-item-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 18px;
-    font-weight: 300;
-    color: var(--navy);
-    margin-bottom: 4px;
-  }
-  .summary-item-detail {
-    font-size: 11px;
-    color: var(--gray-mid);
-    letter-spacing: 0.5px;
-    line-height: 1.6;
-  }
-  .summary-item-price {
-    font-family: 'Cinzel', serif;
-    font-size: 16px;
-    font-weight: 600;
-    color: var(--gold);
-  }
-  .summary-line {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 12px;
-    font-size: 13px;
-    color: var(--gray-mid);
-  }
-  .summary-total {
-    display: flex;
-    justify-content: space-between;
-    padding-top: 20px;
-    border-top: 2px solid var(--navy);
-    margin-top: 8px;
-  }
-  .summary-total-label {
-    font-family: 'Cinzel', serif;
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--navy);
-  }
-  .summary-total-amount {
-    font-family: 'Cinzel', serif;
-    font-size: 22px;
-    font-weight: 600;
-    color: var(--navy);
-  }
-
-  /* ===== SUCCESS ===== */
-  #success-page {
-    display: none;
-    min-height: 80vh;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 80px 40px;
-    flex-direction: column;
-  }
-  #success-page.show { display: flex; }
-  .success-icon {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    background: var(--navy);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 32px;
-    margin: 0 auto 32px;
-    animation: popIn 0.5s ease;
-  }
-  @keyframes popIn {
-    from { transform: scale(0); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-  }
-  .success-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 52px;
-    font-weight: 300;
-    font-style: italic;
-    color: var(--navy);
-    margin-bottom: 16px;
-  }
-  .success-sub {
-    font-size: 13px;
-    letter-spacing: 2px;
-    color: var(--gray-mid);
-    text-transform: uppercase;
-    margin-bottom: 40px;
-  }
-  .success-order {
-    font-family: 'Cinzel', serif;
-    font-size: 11px;
-    letter-spacing: 3px;
-    color: var(--gold);
-    border: 1px solid var(--gold-pale);
-    padding: 12px 24px;
-    margin-bottom: 32px;
-  }
-
-  /* ===== ANIMATIONS ===== */
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  /* ===== FOOTER ===== */
-  footer {
-    background: var(--navy);
-    padding: 60px 40px 30px;
-  }
-  .footer-inner {
-    max-width: 1300px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
-    gap: 60px;
-    padding-bottom: 48px;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-  }
-  .footer-brand .logo-main { color: var(--white); font-size: 18px; }
-  .footer-desc {
-    font-size: 12px;
-    line-height: 1.8;
-    color: rgba(240,230,200,0.5);
-    margin-top: 16px;
-    max-width: 280px;
-  }
-  .footer-col h4 {
-    font-family: 'Cinzel', serif;
-    font-size: 9px;
-    letter-spacing: 3px;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 20px;
-  }
-  .footer-col a {
-    display: block;
-    font-size: 12px;
-    color: rgba(240,230,200,0.5);
-    text-decoration: none;
-    margin-bottom: 10px;
-    cursor: pointer;
-    transition: color 0.2s;
-  }
-  .footer-col a:hover { color: var(--gold); }
-  .footer-bottom {
-    max-width: 1300px;
-    margin: 24px auto 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 11px;
-    color: rgba(240,230,200,0.3);
-    letter-spacing: 1px;
-  }
-
-  /* Responsive */
-  @media (max-width: 768px) {
-    .products-grid, .products-full, .values-grid, .about-grid, .stats-grid,
-    .checkout-layout, .footer-inner { grid-template-columns: 1fr; }
-    .detail-inner { grid-template-columns: 1fr; }
-    .checkout-summary-side { position: static; }
-    .hero h1 { font-size: 48px; }
-    .hero-cta { flex-direction: column; align-items: center; }
-    .form-row { grid-template-columns: 1fr; }
-    nav { gap: 20px; }
-    .header-inner { padding: 0 20px; }
-  }
+@media(max-width:768px){
+  .products-grid,.products-full,.values-grid,.about-grid,.stats-grid,.checkout-layout,.footer-inner,.cart-layout,.contact-layout{grid-template-columns:1fr;}
+  .detail-inner{grid-template-columns:1fr;}
+  .checkout-summary-side{position:static;}
+  .hero h1{font-size:48px;}
+  .hero-cta{flex-direction:column;align-items:center;}
+  .form-row{grid-template-columns:1fr;}
+  nav{gap:16px;}
+  .header-inner{padding:0 20px;}
+}
 </style>
 </head>
 <body>
 
-<!-- TICKER -->
 <div class="ticker">
   <div class="ticker-inner">
     <span>EXCLUSIVE COLLECTION • OFFICIAL EDITION</span>
@@ -1189,10 +314,9 @@
   </div>
 </div>
 
-<!-- HEADER -->
 <header>
   <div class="header-inner">
-    <div style="width:120px"></div>
+    <div style="width:140px"></div>
     <div class="logo" onclick="showPage('home')">
       <div class="logo-main">EXECUTIVE CAP</div>
       <div class="logo-sub">Official Collection — Washington, D.C.</div>
@@ -1201,12 +325,16 @@
       <a onclick="showPage('home')" id="nav-home" class="active">Home</a>
       <a onclick="showPage('products')" id="nav-products">Collection</a>
       <a onclick="showPage('about')" id="nav-about">About</a>
-      <button class="cart-btn" onclick="showPage('checkout')">Order Now</button>
+      <a onclick="showPage('contact')" id="nav-contact">Contact</a>
+      <button class="cart-nav-btn" onclick="showPage('cart')">
+        🛒 Cart
+        <span class="cart-count" id="cart-count">0</span>
+      </button>
     </nav>
   </div>
 </header>
 
-<!-- ========== HOME PAGE ========== -->
+<!-- ========== HOME ========== -->
 <div id="page-home" class="page active">
   <div class="hero">
     <div class="hero-badge">Spring Collection 2026</div>
@@ -1218,16 +346,13 @@
     </div>
     <div class="hero-divider"></div>
   </div>
-
   <div class="section">
     <div class="section-label">Exclusive Collection</div>
     <h2 class="section-title">Two models,<br><em>one standard of excellence</em></h2>
     <p class="section-desc">Crafted for those who refuse to compromise. Each piece is individually numbered, signed, and accompanied by its certificate of authenticity.</p>
     <div class="products-grid">
       <div class="product-card" onclick="openDetail('white')">
-        <div class="product-img-wrap">
-          <img class="product-img" src="https://i.imgur.com/p0ByLDt.jpeg" alt="Casquette Blanche Executive" onerror="this.style.background='#f5f0e8';this.style.display='block'">
-        </div>
+        <div class="product-img-wrap"><img class="product-img" src="https://i.imgur.com/p0ByLDt.jpeg" alt="Executive White"></div>
         <div class="product-info">
           <div class="product-tag">Classic Edition</div>
           <div class="product-name">Executive White</div>
@@ -1236,9 +361,7 @@
         </div>
       </div>
       <div class="product-card gold-card" onclick="openDetail('gold')">
-        <div class="product-img-wrap">
-          <img class="product-img" src="https://i.imgur.com/npxyYlc.jpeg" alt="Casquette Dorée Prestige" onerror="this.style.background='#f5f0e8';this.style.display='block'">
-        </div>
+        <div class="product-img-wrap"><img class="product-img" src="https://i.imgur.com/npxyYlc.jpeg" alt="Executive Gold"></div>
         <div class="product-info">
           <div class="product-tag" style="color:var(--gold-light)">Prestige Edition</div>
           <div class="product-name">Executive Gold</div>
@@ -1248,10 +371,9 @@
       </div>
     </div>
   </div>
-
   <div class="values">
     <div class="values-inner">
-      <div class="section-label" style="color:rgba(184,148,42,0.6)">Our Philosophy</div>
+      <div class="section-label" style="color:rgba(184,148,42,.6)">Our Philosophy</div>
       <h2 class="section-title" style="color:var(--white)">The art of detail,<br><em>elevated to a manifesto</em></h2>
       <div class="values-grid">
         <div class="value-item">
@@ -1274,11 +396,11 @@
   </div>
 </div>
 
-<!-- ========== PRODUCTS PAGE ========== -->
+<!-- ========== COLLECTION ========== -->
 <div id="page-products" class="page">
   <div class="page-hero">
-    <div style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:5px;color:var(--gold);margin-bottom:16px;text-transform:uppercase;">Collection 2026</div>
-    <h2>La <em>Collection</em></h2>
+    <div style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:5px;color:var(--gold);margin-bottom:16px;text-transform:uppercase">Collection 2026</div>
+    <h2>The <em>Collection</em></h2>
     <p>Two creations. One vision. Excellence as a legacy.</p>
   </div>
   <div class="products-full">
@@ -1289,7 +411,7 @@
       </div>
       <div class="product-full-body">
         <div class="product-full-name">Executive White</div>
-        <div class="product-full-ref">Réf. EXC-WH-2026 · Limited Edition 250 pièces</div>
+        <div class="product-full-ref">Ref. EXC-WH-2026 · Limited Edition · 250 pieces</div>
         <div class="product-full-price">$115</div>
         <p class="product-full-desc">Pure elegance incarnate. Ivory Pima cotton with Capitol Hill embroidery in satin white thread. The cap worn by those who lead in silence.</p>
         <button class="btn-discover">View Product</button>
@@ -1311,7 +433,7 @@
   </div>
 </div>
 
-<!-- ========== ABOUT PAGE ========== -->
+<!-- ========== ABOUT ========== -->
 <div id="page-about" class="page">
   <div class="about-hero">
     <div style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:5px;color:var(--gold);margin-bottom:20px;text-transform:uppercase;position:relative;z-index:1">Our House</div>
@@ -1319,9 +441,7 @@
   </div>
   <div class="about-content">
     <div class="about-grid">
-      <div class="about-visual">
-        <img src="https://i.imgur.com/OIpWTvX.jpeg" alt="Atelier" style="object-fit:cover">
-      </div>
+      <div class="about-visual"><img src="https://i.imgur.com/OIpWTvX.jpeg" alt="Atelier"></div>
       <div class="about-text">
         <div class="section-label">Our Story</div>
         <h3>The art of the cap,<br><em>elevated to luxury</em></h3>
@@ -1329,12 +449,10 @@
         <p>Each piece is conceived in our Washington atelier by craftsmen selected for their mastery. Materials are sourced from the world's finest mills. Nothing is left to chance.</p>
       </div>
     </div>
-
     <div class="about-quote">
       <blockquote>"Power is not proclaimed. It is worn."</blockquote>
       <cite>— Executive Cap, Founding Manifesto, 2024</cite>
     </div>
-
     <div class="about-grid">
       <div class="about-text">
         <div class="section-label">Our Craft</div>
@@ -1342,189 +460,215 @@
         <p>Our manufacturing process is uncompromising: material selection, millimeter-precise cutting, hand embroidery, individual quality control. Every cap leaves the atelier with a unique serial number engraved inside.</p>
         <p>The Gold edition benefits from an additional protocol: the application of genuine 18-karat gold thread is carried out by a master embroiderer whose initials appear on the inside of each piece.</p>
       </div>
-      <div class="about-visual">
-        <img src="https://i.imgur.com/DSTo2eG.jpeg" alt="Savoir-faire">
+      <div class="about-visual"><img src="https://i.imgur.com/DSTo2eG.jpeg" alt="Craftsmanship"></div>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-item"><span class="stat-num">250</span><span class="stat-label">Pieces per edition</span></div>
+      <div class="stat-item"><span class="stat-num">6h</span><span class="stat-label">Crafting time per piece</span></div>
+      <div class="stat-item"><span class="stat-num">18k</span><span class="stat-label">Real gold — Gold Edition</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== CONTACT ========== -->
+<div id="page-contact" class="page">
+  <div class="contact-hero">
+    <div style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:5px;color:var(--gold);margin-bottom:20px;text-transform:uppercase;position:relative;z-index:1">Private Client Services</div>
+    <h2>Get in <em>Touch</em></h2>
+  </div>
+  <div class="contact-layout">
+    <div class="contact-info">
+      <h3>We are at your<br><em>service</em></h3>
+      <p>Our private client team is available Monday through Friday to assist you with any question regarding our collection, custom orders, or after-sale services.</p>
+      <div class="contact-detail">
+        <div class="contact-icon">📞</div>
+        <div class="contact-detail-text">
+          <div class="contact-detail-label">Phone</div>
+          <div class="contact-detail-val">+1 (202) XXX-XXXX</div>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-icon">✉️</div>
+        <div class="contact-detail-text">
+          <div class="contact-detail-label">Email</div>
+          <div class="contact-detail-val">contact@executive-cap.com</div>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-icon">🕐</div>
+        <div class="contact-detail-text">
+          <div class="contact-detail-label">Hours</div>
+          <div class="contact-detail-val">Monday – Friday, 9AM to 6PM EST</div>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-icon">📍</div>
+        <div class="contact-detail-text">
+          <div class="contact-detail-label">Address</div>
+          <div class="contact-detail-val">1600 Pennsylvania Avenue NW<br>Washington, D.C. 20500</div>
+        </div>
       </div>
     </div>
 
-    <div class="stats-grid">
-      <div class="stat-item">
-        <span class="stat-num">250</span>
-        <span class="stat-label">Pieces per edition</span>
+    <div class="contact-form-wrap">
+      <div class="contact-form-title">Send us a message</div>
+      <div id="contact-form-area" class="contact-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>First Name *</label>
+            <input type="text" id="c-firstname" placeholder="John">
+            <div class="error-msg" id="cerr-firstname">Required</div>
+          </div>
+          <div class="form-group">
+            <label>Last Name *</label>
+            <input type="text" id="c-lastname" placeholder="Smith">
+            <div class="error-msg" id="cerr-lastname">Required</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email Address *</label>
+          <input type="email" id="c-email" placeholder="john.smith@email.com">
+          <div class="error-msg" id="cerr-email">Valid email required</div>
+        </div>
+        <div class="form-group">
+          <label>Subject *</label>
+          <select id="c-subject">
+            <option value="">Select a subject</option>
+            <option>Order inquiry</option>
+            <option>Custom engraving</option>
+            <option>Shipping & delivery</option>
+            <option>Returns & exchanges</option>
+            <option>Private client services</option>
+            <option>Other</option>
+          </select>
+          <div class="error-msg" id="cerr-subject">Please select a subject</div>
+        </div>
+        <div class="form-group">
+          <label>Message *</label>
+          <textarea id="c-message" rows="5" placeholder="How can we assist you?"></textarea>
+          <div class="error-msg" id="cerr-message">Message required</div>
+        </div>
+        <button class="btn-send" onclick="submitContact()">Send Message</button>
       </div>
-      <div class="stat-item">
-        <span class="stat-num">6h</span>
-        <span class="stat-label">Crafting time per piece</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-num">18k</span>
-        <span class="stat-label">Real gold — Gold Edition</span>
+      <div class="contact-success" id="contact-success">
+        <div class="contact-success-icon">✓</div>
+        <h4>Message received</h4>
+        <p>Thank you for reaching out. Our team will respond within 24 business hours.</p>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ========== CHECKOUT PAGE ========== -->
+<!-- ========== CART ========== -->
+<div id="page-cart" class="page">
+  <div class="page-hero">
+    <div style="font-family:'Cinzel',serif;font-size:10px;letter-spacing:5px;color:var(--gold);margin-bottom:16px;text-transform:uppercase">Your Selection</div>
+    <h2>Your <em>Cart</em></h2>
+  </div>
+  <div class="cart-page-inner">
+    <!-- Empty state -->
+    <div class="cart-empty" id="cart-empty">
+      <div class="cart-empty-icon">🛒</div>
+      <h3>Your cart is empty</h3>
+      <p>Discover our exclusive collection and add a piece to your cart.</p>
+      <button class="btn-primary" onclick="showPage('products')">Explore the Collection</button>
+    </div>
+    <!-- Cart with items -->
+    <div class="cart-layout" id="cart-filled" style="display:none">
+      <div class="cart-items-col" id="cart-items-list"></div>
+      <div class="cart-summary">
+        <div class="cart-summary-title">Order Summary</div>
+        <div class="cart-summary-line"><span>Subtotal</span><span id="cart-subtotal">—</span></div>
+        <div class="cart-summary-line"><span>Express Shipping (48h)</span><span>Free</span></div>
+        <div class="cart-summary-line"><span>Premium Packaging</span><span>Free</span></div>
+        <div class="cart-summary-total">
+          <span class="cart-summary-total-label">Total</span>
+          <span class="cart-summary-total-amount" id="cart-total-amount">—</span>
+        </div>
+        <button class="btn-checkout" onclick="goToCheckout()">Proceed to Payment</button>
+        <button class="btn-continue" onclick="showPage('products')">Continue Shopping</button>
+        <div style="margin-top:20px;font-size:11px;color:var(--gray-mid);line-height:1.8">
+          ✓ Certificate of authenticity included<br>
+          ✓ Insured & tracked delivery<br>
+          ✓ Luxury presentation case
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== CHECKOUT ========== -->
 <div id="page-checkout" class="page">
   <div id="checkout-form-view">
     <div class="checkout-layout">
       <div class="checkout-form-side">
-        <div class="checkout-steps">
-          <span class="checkout-step done" id="step1">Shipping</span>
-          <span class="checkout-step active" id="step2">Payment</span>
-          <span class="checkout-step" id="step3">Confirmation</span>
+        <div style="margin-bottom:20px">
+          <button onclick="showPage('cart')" style="background:none;border:none;cursor:pointer;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gray-mid);display:flex;align-items:center;gap:8px;">← Back to Cart</button>
         </div>
-
+        <div class="checkout-steps">
+          <span class="checkout-step done">Shipping</span>
+          <span class="checkout-step active">Payment</span>
+          <span class="checkout-step">Confirmation</span>
+        </div>
         <h2 class="form-section-title">Shipping Information</h2>
         <div class="form-row">
-          <div class="form-group">
-            <label>First Name *</label>
-            <input type="text" id="firstname" placeholder="John">
-            <div class="error-msg" id="err-firstname">First name is required</div>
-          </div>
-          <div class="form-group">
-            <label>Last Name *</label>
-            <input type="text" id="lastname" placeholder="Smith">
-            <div class="error-msg" id="err-lastname">Last name is required</div>
-          </div>
+          <div class="form-group"><label>First Name *</label><input type="text" id="firstname" placeholder="John"><div class="error-msg" id="err-firstname">First name is required</div></div>
+          <div class="form-group"><label>Last Name *</label><input type="text" id="lastname" placeholder="Smith"><div class="error-msg" id="err-lastname">Last name is required</div></div>
         </div>
-        <div class="form-row full">
-          <div class="form-group">
-            <label>Email Address *</label>
-            <input type="email" id="email" placeholder="john.smith@email.com">
-            <div class="error-msg" id="err-email">A valid email is required</div>
-          </div>
-        </div>
-        <div class="form-row full">
-          <div class="form-group">
-            <label>Street Address *</label>
-            <input type="text" id="address" placeholder="1600 Pennsylvania Avenue NW">
-            <div class="error-msg" id="err-address">Address is required</div>
-          </div>
-        </div>
+        <div class="form-row full"><div class="form-group"><label>Email Address *</label><input type="email" id="email" placeholder="john.smith@email.com"><div class="error-msg" id="err-email">A valid email is required</div></div></div>
+        <div class="form-row full"><div class="form-group"><label>Street Address *</label><input type="text" id="address" placeholder="1600 Pennsylvania Avenue NW"><div class="error-msg" id="err-address">Address is required</div></div></div>
         <div class="form-row">
-          <div class="form-group">
-            <label>ZIP / Postal Code *</label>
-            <input type="text" id="zip" placeholder="20500">
-            <div class="error-msg" id="err-zip">ZIP code is required</div>
-          </div>
-          <div class="form-group">
-            <label>City *</label>
-            <input type="text" id="city" placeholder="Washington">
-            <div class="error-msg" id="err-city">City is required</div>
-          </div>
+          <div class="form-group"><label>ZIP / Postal Code *</label><input type="text" id="zip" placeholder="20500"><div class="error-msg" id="err-zip">ZIP code is required</div></div>
+          <div class="form-group"><label>City *</label><input type="text" id="city" placeholder="Washington"><div class="error-msg" id="err-city">City is required</div></div>
         </div>
         <div class="form-row full">
-          <div class="form-group">
-            <label>Country *</label>
+          <div class="form-group"><label>Country *</label>
             <select id="country">
               <option value="">Select a country</option>
-              <option value="FR">France</option>
-              <option value="BE">Belgium</option>
-              <option value="CH">Switzerland</option>
-              <option value="LU">Luxembourg</option>
-              <option value="MC">Monaco</option>
-              <option value="US">United States</option>
-              <option value="GB">United Kingdom</option>
-              <option value="DE">Germany</option>
-              <option value="IT">Italy</option>
-              <option value="ES">Spain</option>
+              <option value="US">United States</option><option value="GB">United Kingdom</option><option value="CA">Canada</option><option value="AU">Australia</option><option value="FR">France</option><option value="DE">Germany</option><option value="IT">Italy</option><option value="ES">Spain</option><option value="CH">Switzerland</option><option value="AE">United Arab Emirates</option>
             </select>
             <div class="error-msg" id="err-country">Country is required</div>
           </div>
         </div>
-        <div class="form-row full">
-          <div class="form-group">
-            <label>Phone Number *</label>
-            <input type="tel" id="phone" placeholder="+1 (202) 456-1111">
-            <div class="error-msg" id="err-phone">Phone number is required</div>
-          </div>
-        </div>
-
+        <div class="form-row full"><div class="form-group"><label>Phone Number *</label><input type="tel" id="phone" placeholder="+1 (202) 456-1111"><div class="error-msg" id="err-phone">Phone number is required</div></div></div>
         <div style="height:1px;background:var(--gray-light);margin:32px 0"></div>
-
         <h2 class="form-section-title">Payment Information</h2>
-        <div class="card-brands">
-          <span class="card-brand active">VISA</span>
-          <span class="card-brand active">MASTERCARD</span>
-          <span class="card-brand active">AMEX</span>
-          <span class="card-brand">PAYPAL</span>
-        </div>
-        <div class="form-row full">
-          <div class="form-group">
-            <label>Cardholder Name *</label>
-            <input type="text" id="cardholder" placeholder="JOHN SMITH">
-            <div class="error-msg" id="err-cardholder">Cardholder name is required</div>
-          </div>
-        </div>
-        <div class="form-row full">
-          <div class="form-group">
-            <label>Card Number *</label>
-            <div class="card-input-wrap">
-              <input type="text" id="cardnum" placeholder="•••• •••• •••• ••••" maxlength="19" oninput="formatCard(this)">
-              <span class="card-icon">💳</span>
-            </div>
-            <div class="error-msg" id="err-cardnum">Invalid card number (16 digits required)</div>
-          </div>
-        </div>
+        <div class="card-brands"><span class="card-brand active">VISA</span><span class="card-brand active">MASTERCARD</span><span class="card-brand active">AMEX</span><span class="card-brand">PAYPAL</span></div>
+        <div class="form-row full"><div class="form-group"><label>Cardholder Name *</label><input type="text" id="cardholder" placeholder="JOHN SMITH"><div class="error-msg" id="err-cardholder">Cardholder name is required</div></div></div>
+        <div class="form-row full"><div class="form-group"><label>Card Number *</label><div class="card-input-wrap"><input type="text" id="cardnum" placeholder="•••• •••• •••• ••••" maxlength="19" oninput="formatCard(this)"><span class="card-icon">💳</span></div><div class="error-msg" id="err-cardnum">Invalid card number (16 digits required)</div></div></div>
         <div class="form-row">
-          <div class="form-group">
-            <label>Expiration Date *</label>
-            <input type="text" id="expiry" placeholder="MM/YY" maxlength="5" oninput="formatExpiry(this)">
-            <div class="error-msg" id="err-expiry">Invalid date</div>
-          </div>
-          <div class="form-group">
-            <label>Security Code *</label>
-            <div class="card-input-wrap">
-              <input type="text" id="cvv" placeholder="•••" maxlength="4">
-              <span class="card-icon">🔒</span>
-            </div>
-            <div class="error-msg" id="err-cvv">CVV required (3–4 digits)</div>
-          </div>
+          <div class="form-group"><label>Expiration Date *</label><input type="text" id="expiry" placeholder="MM/YY" maxlength="5" oninput="formatExpiry(this)"><div class="error-msg" id="err-expiry">Invalid date</div></div>
+          <div class="form-group"><label>Security Code *</label><div class="card-input-wrap"><input type="text" id="cvv" placeholder="•••" maxlength="4"><span class="card-icon">🔒</span></div><div class="error-msg" id="err-cvv">CVV required (3–4 digits)</div></div>
         </div>
-
-        <div class="secure-badge">
-          <span>🔐</span>
-          <span>Payment 100% sécurisé par chiffrement SSL 256 bits — Vos données bancaires ne sont jamais stockées</span>
-        </div>
-
+        <div class="secure-badge"><span>🔐</span><span>100% secure payment — 256-bit SSL encryption. Your banking details are never stored.</span></div>
         <button class="btn-pay" onclick="submitPayment()">Confirm & Pay — <span id="pay-total">—</span></button>
       </div>
-
       <div class="checkout-summary-side">
         <div class="summary-title">Order Summary</div>
         <div id="summary-items"></div>
         <div style="margin-top:24px">
           <div class="summary-line"><span>Subtotal</span><span id="sum-subtotal">—</span></div>
-          <div class="summary-line"><span>Shipping express (48h)</span><span>Free</span></div>
+          <div class="summary-line"><span>Express Shipping (48h)</span><span>Free</span></div>
           <div class="summary-line"><span>Premium Packaging</span><span>Free</span></div>
-          <div class="summary-total">
-            <span class="summary-total-label">Total</span>
-            <span class="summary-total-amount" id="sum-total">—</span>
-          </div>
+          <div class="summary-total"><span class="summary-total-label">Total</span><span class="summary-total-amount" id="sum-total">—</span></div>
         </div>
-        <div style="margin-top:28px;padding:20px;background:rgba(10,22,40,0.04);font-size:11px;color:var(--gray-mid);line-height:1.8">
-          ✓ Certificate of authenticity included<br>
-          ✓ Individually engraved serial number<br>
-          ✓ Luxury presentation case<br>
-          ✓ Shipping assurée et suivie
+        <div style="margin-top:28px;padding:20px;background:rgba(10,22,40,.04);font-size:11px;color:var(--gray-mid);line-height:1.8">
+          ✓ Certificate of authenticity included<br>✓ Individually engraved serial number<br>✓ Luxury presentation case<br>✓ Insured & tracked delivery
         </div>
       </div>
     </div>
   </div>
-
-  <!-- SUCCESS -->
   <div id="success-page">
     <div class="success-icon">✓</div>
     <h2 class="success-title">Order Confirmed</h2>
     <p class="success-sub">Thank you for your trust</p>
     <div class="success-order" id="order-number">Order #EXC-2026-XXXX</div>
     <p style="font-size:13px;color:var(--gray-mid);max-width:440px;line-height:1.8">A confirmation email has been sent to you. Your cap will be prepared by our craftsmen and shipped within 48 business hours.</p>
-    <button class="btn-primary" style="margin-top:40px" onclick="showPage('home')">Back to Home</button>
+    <button class="btn-primary" style="margin-top:40px" onclick="resetAndHome()">Back to Home</button>
   </div>
 </div>
 
-<!-- ========== PRODUCT DETAIL ========== -->
+<!-- PRODUCT DETAIL OVERLAY -->
 <div id="product-detail">
   <button class="detail-close" onclick="closeDetail()">✕ Close</button>
   <div class="detail-inner">
@@ -1539,29 +683,25 @@
       <div class="detail-price" id="detail-price"></div>
       <div class="detail-divider"></div>
       <p class="detail-desc" id="detail-desc"></p>
-
       <div class="supplements">
         <div class="supplements-title">Executive Add-Ons</div>
         <div id="supplements-list"></div>
       </div>
-
       <div class="detail-total">
         <span class="total-label">Total</span>
         <span class="total-amount" id="detail-total">—</span>
       </div>
-
-      <button class="btn-add-cart" onclick="addToCart()">Ajouter & Order Now</button>
-      <p style="font-size:11px;color:var(--gray-mid);text-align:center;letter-spacing:0.5px">Shipping express 48h · Certificat d'authenticité inclus</p>
+      <button class="btn-add-cart" onclick="addToCart()">Add to Cart</button>
+      <p style="font-size:11px;color:var(--gray-mid);text-align:center;letter-spacing:.5px">Express 48h shipping · Certificate of authenticity included</p>
     </div>
   </div>
 </div>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
       <div class="logo-main" style="color:var(--white)">EXECUTIVE CAP</div>
-      <div class="logo-sub" style="margin-top:4px">Collection Officielle</div>
+      <div class="logo-sub" style="margin-top:4px">Official Collection</div>
       <p class="footer-desc">Prestige caps crafted for those who demand excellence in every detail.</p>
     </div>
     <div class="footer-col">
@@ -1569,14 +709,14 @@
       <a onclick="showPage('home')">Home</a>
       <a onclick="showPage('products')">Collection</a>
       <a onclick="showPage('about')">About</a>
-      <a onclick="showPage('checkout')">Order Now</a>
+      <a onclick="showPage('contact')">Contact</a>
     </div>
     <div class="footer-col">
       <h4>Client Services</h4>
       <a>contact@executive-cap.com</a>
       <a>+1 (202) XXX-XXXX</a>
       <a>Mon–Fri: 9AM–6PM EST</a>
-      <a>Shipping & Retours</a>
+      <a>Shipping & Returns</a>
     </div>
   </div>
   <div class="footer-bottom">
@@ -1586,61 +726,61 @@
 </footer>
 
 <script>
-// ===== STATE =====
-let currentProduct = null;
-let selectedSupplements = [];
-let cartItem = null;
-
+// ===== DATA =====
 const products = {
   white: {
-    id: 'white',
-    label: 'Classic Edition — Collection 2026',
-    name: 'Executive White',
-    ref: 'Réf. EXC-WH-2026 · Limited Edition · 250 pièces numérotées',
-    price: 115,
-    badge: 'Classic',
-    desc: 'Pure elegance incarnate. Crafted from long-fiber Pima cotton of immaculate ivory white, the Executive White bears a Capitol Hill embroidery in satin white thread. The structured lacquered-PU visor, gold metal buckle, and engraved serial number inside make it an unrivaled collector's piece.',
-    imgs: ['https://i.imgur.com/OIpWTvX.jpeg', 'https://i.imgur.com/p0ByLDt.jpeg'],
-    supplements: [
-      { id: 's1', name: 'Executive Engraving', desc: 'Your initials laser-engraved on the gold buckle', price: 45 },
-      { id: 's2', name: 'Presidential Case', desc: 'Embossed black nappa leather box with bordeaux velvet lining', price: 120 },
-      { id: 's3', name: 'Numbered Certificate', desc: 'Certificate of authenticity on vellum paper, hand-signed', price: 35 },
-      { id: 's4', name: 'Service Shipping Blanche', desc: 'Coursier privé en 24h, emballage cadeau blanc avec ruban or', price: 65 },
+    id:'white', label:'Classic Edition — Collection 2026', name:'Executive White',
+    ref:'Ref. EXC-WH-2026 · Limited Edition · 250 numbered pieces', price:115,
+    desc:"Pure elegance incarnate. Crafted from long-fiber Pima cotton of immaculate ivory white, the Executive White bears a Capitol Hill embroidery in satin white thread. The structured lacquered-PU visor, gold metal buckle, and engraved serial number inside make it an unrivaled collector's piece.",
+    imgs:['https://i.imgur.com/OIpWTvX.jpeg','https://i.imgur.com/p0ByLDt.jpeg'],
+    supplements:[
+      {id:'s1',name:'Executive Engraving',desc:'Your initials laser-engraved on the gold buckle',price:45},
+      {id:'s2',name:'Presidential Case',desc:'Embossed black nappa leather box with bordeaux velvet lining',price:120},
+      {id:'s3',name:'Numbered Certificate',desc:'Certificate of authenticity on vellum paper, hand-signed',price:35},
+      {id:'s4',name:'White Glove Delivery',desc:'Private courier in 24h, white gift wrapping with gold ribbon',price:65},
     ]
   },
   gold: {
-    id: 'gold',
-    label: 'Prestige Edition — Collection 2026',
-    name: 'Executive Gold',
-    ref: 'Ref. EXC-GD-2026 · Ultra-Limited · 50 numbered pieces',
-    price: 745,
-    badge: 'Prestige',
-    desc: 'The apex of our craft. Embroidered with genuine 18-karat gold thread by a master artisan, on 400-count Egyptian cotton of incomparable softness. The Executive Gold is delivered in its embossed black leather case with a numbered certificate signed by the craftsman. Fewer than 50 pieces in the world.',
-    imgs: ['https://i.imgur.com/DSTo2eG.jpeg', 'https://i.imgur.com/npxyYlc.jpeg'],
-    supplements: [
-      { id: 's1', name: '18-Karat Gold Engraving', desc: 'Your initials hand-chiseled in gold on the buckle', price: 180 },
-      { id: 's2', name: 'Grand Estate Case', desc: 'Mahogany box lined in full-grain leather, monogrammed', price: 350 },
-      { id: 's3', name: 'Diplomatic Shipment', desc: 'Shock-proof security case, fully insured worldwide courier', price: 220 },
-      { id: 's4', name: 'Master Craftsman Dedication', desc: 'Handwritten card and gold signature from the master embroiderer', price: 95 },
+    id:'gold', label:'Prestige Edition — Collection 2026', name:'Executive Gold',
+    ref:'Ref. EXC-GD-2026 · Ultra-Limited · 50 numbered pieces', price:745,
+    desc:"The apex of our craft. Embroidered with genuine 18-karat gold thread by a master artisan, on 400-count Egyptian cotton of incomparable softness. The Executive Gold is delivered in its embossed black leather case with a numbered certificate signed by the craftsman. Fewer than 50 pieces in the world.",
+    imgs:['https://i.imgur.com/DSTo2eG.jpeg','https://i.imgur.com/npxyYlc.jpeg'],
+    supplements:[
+      {id:'s1',name:'18-Karat Gold Engraving',desc:'Your initials hand-chiseled in gold on the buckle',price:180},
+      {id:'s2',name:'Grand Estate Case',desc:'Mahogany box lined in full-grain leather, monogrammed',price:350},
+      {id:'s3',name:'Diplomatic Shipment',desc:'Shock-proof security case, fully insured worldwide courier',price:220},
+      {id:'s4',name:'Master Craftsman Dedication',desc:'Handwritten card and gold signature from the master embroiderer',price:95},
     ]
   }
 };
 
+// ===== STATE =====
+let currentProduct = null;
+let selectedSupplements = [];
+let cart = []; // array of {product, supplements, total}
+
 // ===== NAVIGATION =====
 function showPage(page) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.getElementById('page-' + page).classList.add('active');
+  document.getElementById('page-'+page).classList.add('active');
   document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
-  const navEl = document.getElementById('nav-' + page);
-  if (navEl) navEl.classList.add('active');
-  window.scrollTo(0, 0);
-  
-  if (page === 'checkout') {
-    updateCheckoutSummary();
-    document.getElementById('checkout-form-view').style.display = 'block';
-    const sp = document.getElementById('success-page');
-    sp.classList.remove('show');
+  const navEl = document.getElementById('nav-'+page);
+  if(navEl) navEl.classList.add('active');
+  window.scrollTo(0,0);
+  if(page==='cart') renderCart();
+  if(page==='checkout') {
+    // Only accessible from cart via goToCheckout()
+    renderCheckoutSummary();
+    document.getElementById('checkout-form-view').style.display='block';
+    document.getElementById('success-page').classList.remove('show');
   }
+}
+
+// ===== CART BADGE =====
+function updateCartBadge() {
+  const count = document.getElementById('cart-count');
+  if(cart.length>0){count.textContent=cart.length;count.classList.add('show');}
+  else{count.classList.remove('show');}
 }
 
 // ===== PRODUCT DETAIL =====
@@ -1648,194 +788,184 @@ function openDetail(id) {
   const p = products[id];
   currentProduct = p;
   selectedSupplements = [];
-  
   document.getElementById('detail-label').textContent = p.label;
   document.getElementById('detail-name').textContent = p.name;
   document.getElementById('detail-ref').textContent = p.ref;
-  document.getElementById('detail-price').textContent = p.price + ': $';
+  document.getElementById('detail-price').textContent = '$'+p.price;
   document.getElementById('detail-desc').textContent = p.desc;
-
   const mainImg = document.getElementById('detail-main-img');
   mainImg.src = p.imgs[0];
-
   const thumbsEl = document.getElementById('detail-thumbs');
   thumbsEl.innerHTML = '';
-  p.imgs.forEach((img, i) => {
+  p.imgs.forEach((img,i) => {
     const t = document.createElement('img');
-    t.src = img;
-    t.className = 'detail-thumb' + (i === 0 ? ' active' : '');
-    t.onclick = () => {
-      mainImg.src = img;
-      thumbsEl.querySelectorAll('.detail-thumb').forEach(x => x.classList.remove('active'));
-      t.classList.add('active');
-    };
+    t.src=img; t.className='detail-thumb'+(i===0?' active':'');
+    t.onclick=()=>{mainImg.src=img;thumbsEl.querySelectorAll('.detail-thumb').forEach(x=>x.classList.remove('active'));t.classList.add('active');};
     thumbsEl.appendChild(t);
   });
-
   const suppList = document.getElementById('supplements-list');
-  suppList.innerHTML = '';
-  p.supplements.forEach(s => {
-    const item = document.createElement('div');
-    item.className = 'supplement-item';
-    item.id = 'supp-' + s.id;
-    item.innerHTML = `
-      <div class="supp-check"></div>
-      <div class="supp-info">
-        <span class="supp-name">${s.name}</span>
-        <span class="supp-desc">${s.desc}</span>
-      </div>
-      <span class="supp-price">+${s.price} €</span>
-    `;
-    item.onclick = () => toggleSupplement(s, item);
+  suppList.innerHTML='';
+  p.supplements.forEach(s=>{
+    const item=document.createElement('div');
+    item.className='supplement-item';
+    item.innerHTML=`<div class="supp-check"></div><div class="supp-info"><span class="supp-name">${s.name}</span><span class="supp-desc">${s.desc}</span></div><span class="supp-price">+$${s.price}</span>`;
+    item.onclick=()=>toggleSupplement(s,item);
     suppList.appendChild(item);
   });
-
   updateDetailTotal();
   document.getElementById('product-detail').classList.add('open');
-  document.body.style.overflow = 'hidden';
+  document.body.style.overflow='hidden';
 }
 
-function closeDetail() {
-  document.getElementById('product-detail').classList.remove('open');
-  document.body.style.overflow = '';
-}
+function closeDetail(){document.getElementById('product-detail').classList.remove('open');document.body.style.overflow='';}
 
-function toggleSupplement(supp, el) {
-  const idx = selectedSupplements.findIndex(s => s.id === supp.id);
-  if (idx >= 0) {
-    selectedSupplements.splice(idx, 1);
-    el.classList.remove('selected');
-  } else {
-    selectedSupplements.push(supp);
-    el.classList.add('selected');
-  }
+function toggleSupplement(supp,el){
+  const idx=selectedSupplements.findIndex(s=>s.id===supp.id);
+  if(idx>=0){selectedSupplements.splice(idx,1);el.classList.remove('selected');}
+  else{selectedSupplements.push(supp);el.classList.add('selected');}
   updateDetailTotal();
 }
 
-function updateDetailTotal() {
-  if (!currentProduct) return;
-  const suppTotal = selectedSupplements.reduce((sum, s) => sum + s.price, 0);
-  const total = currentProduct.price + suppTotal;
-  document.getElementById('detail-total').textContent = total + ': $';
+function updateDetailTotal(){
+  if(!currentProduct)return;
+  const total=currentProduct.price+selectedSupplements.reduce((s,x)=>s+x.price,0);
+  document.getElementById('detail-total').textContent='$'+total;
 }
 
-function addToCart() {
-  if (!currentProduct) return;
-  const suppTotal = selectedSupplements.reduce((sum, s) => sum + s.price, 0);
-  cartItem = {
-    product: currentProduct,
-    supplements: [...selectedSupplements],
-    total: currentProduct.price + suppTotal
-  };
+function addToCart(){
+  if(!currentProduct)return;
+  const total=currentProduct.price+selectedSupplements.reduce((s,x)=>s+x.price,0);
+  cart.push({product:currentProduct,supplements:[...selectedSupplements],total});
+  updateCartBadge();
   closeDetail();
+  // Show mini confirmation
+  showCartToast(currentProduct.name);
+}
+
+function showCartToast(name){
+  let toast=document.getElementById('cart-toast');
+  if(!toast){
+    toast=document.createElement('div');
+    toast.id='cart-toast';
+    toast.style.cssText='position:fixed;bottom:32px;right:32px;background:var(--navy);color:var(--white);padding:16px 24px;font-family:Cinzel,serif;font-size:11px;letter-spacing:2px;z-index:9999;animation:fadeInUp .3s ease;';
+    document.body.appendChild(toast);
+  }
+  toast.textContent='✓ '+name+' added to cart';
+  toast.style.display='block';
+  setTimeout(()=>{toast.style.display='none';},2500);
+}
+
+// ===== CART PAGE =====
+function renderCart(){
+  const empty=document.getElementById('cart-empty');
+  const filled=document.getElementById('cart-filled');
+  if(cart.length===0){empty.style.display='block';filled.style.display='none';return;}
+  empty.style.display='none';filled.style.display='grid';
+  const list=document.getElementById('cart-items-list');
+  list.innerHTML='';
+  let total=0;
+  cart.forEach((item,idx)=>{
+    total+=item.total;
+    const el=document.createElement('div');
+    el.className='cart-item';
+    let addonsHTML='';
+    item.supplements.forEach(s=>{addonsHTML+=`<div class="cart-addon"><span>${s.name}</span><span>+$${s.price}</span></div>`;});
+    el.innerHTML=`
+      <img class="cart-item-img" src="${item.product.imgs[0]}" alt="${item.product.name}">
+      <div class="cart-item-info">
+        <div class="cart-item-name">${item.product.name}</div>
+        <div class="cart-item-ref">${item.product.ref}</div>
+        ${addonsHTML?'<div class="cart-item-addons">'+addonsHTML+'</div>':''}
+        <div class="cart-item-total">$${item.total}</div>
+        <button class="cart-item-remove" onclick="removeFromCart(${idx})">Remove</button>
+      </div>`;
+    list.appendChild(el);
+  });
+  document.getElementById('cart-subtotal').textContent='$'+total;
+  document.getElementById('cart-total-amount').textContent='$'+total;
+}
+
+function removeFromCart(idx){
+  cart.splice(idx,1);
+  updateCartBadge();
+  renderCart();
+}
+
+// ===== CHECKOUT — only from cart =====
+function goToCheckout(){
+  if(cart.length===0)return;
   showPage('checkout');
 }
 
-// ===== CHECKOUT =====
-function updateCheckoutSummary() {
-  if (!cartItem) {
-    // Default preview
-    document.getElementById('summary-items').innerHTML = `<p style="font-size:13px;color:var(--gray-mid);font-style:italic">No item selected. Choose your cap from the collection.</p>`;
-    document.getElementById('sum-subtotal').textContent = '—';
-    document.getElementById('sum-total').textContent = '—';
-    document.getElementById('pay-total').textContent = '—';
-    return;
-  }
-
-  const { product, supplements, total } = cartItem;
-  let itemsHTML = `
-    <div class="summary-item">
-      <img class="summary-img" src="${product.imgs[0]}" alt="${product.name}">
-      <div class="summary-item-info">
-        <div class="summary-item-name">${product.name}</div>
-        <div class="summary-item-detail">Limited Edition · ${product.ref.split('·')[1] || ''}<br>${product.ref.split('·')[0] || ''}</div>
-      </div>
-      <div class="summary-item-price">${product.price} €</div>
-    </div>`;
-
-  supplements.forEach(s => {
-    itemsHTML += `
-      <div class="summary-item">
-        <div style="width:80px;height:80px;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0">✦</div>
-        <div class="summary-item-info">
-          <div class="summary-item-name">${s.name}</div>
-          <div class="summary-item-detail">${s.desc}</div>
-        </div>
-        <div class="summary-item-price">+${s.price} €</div>
-      </div>`;
+function renderCheckoutSummary(){
+  if(cart.length===0)return;
+  let html='';
+  let total=0;
+  cart.forEach(item=>{
+    total+=item.total;
+    html+=`<div class="summary-item"><img class="summary-img" src="${item.product.imgs[0]}" alt="${item.product.name}"><div class="summary-item-info"><div class="summary-item-name">${item.product.name}</div><div class="summary-item-detail">${item.product.ref}</div></div><div class="summary-item-price">$${item.product.price}</div></div>`;
+    item.supplements.forEach(s=>{html+=`<div class="summary-item"><div style="width:80px;height:80px;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0">✦</div><div class="summary-item-info"><div class="summary-item-name">${s.name}</div><div class="summary-item-detail">${s.desc}</div></div><div class="summary-item-price">+$${s.price}</div></div>`;});
   });
-
-  document.getElementById('summary-items').innerHTML = itemsHTML;
-  document.getElementById('sum-subtotal').textContent = total + ': $';
-  document.getElementById('sum-total').textContent = total + ': $';
-  document.getElementById('pay-total').textContent = total + ': $';
+  document.getElementById('summary-items').innerHTML=html;
+  document.getElementById('sum-subtotal').textContent='$'+total;
+  document.getElementById('sum-total').textContent='$'+total;
+  document.getElementById('pay-total').textContent='$'+total;
 }
 
-// ===== FORM VALIDATION =====
-function formatCard(input) {
-  let v = input.value.replace(/\D/g, '');
-  let formatted = v.match(/.{1,4}/g)?.join(' ') || '';
-  input.value = formatted.substring(0, 19);
+// ===== FORM HELPERS =====
+function formatCard(input){let v=input.value.replace(/\D/g,'');input.value=(v.match(/.{1,4}/g)||[]).join(' ').substring(0,19);}
+function formatExpiry(input){let v=input.value.replace(/\D/g,'');if(v.length>=2)v=v.substring(0,2)+'/'+v.substring(2,4);input.value=v;}
+function validateField(id,condition,errId){
+  const input=document.getElementById(id);
+  const err=document.getElementById(errId);
+  if(!condition){input.classList.add('error');err.classList.add('show');return false;}
+  input.classList.remove('error');err.classList.remove('show');return true;
 }
 
-function formatExpiry(input) {
-  let v = input.value.replace(/\D/g, '');
-  if (v.length >= 2) v = v.substring(0,2) + '/' + v.substring(2,4);
-  input.value = v;
+// ===== PAYMENT =====
+function submitPayment(){
+  let valid=true;
+  valid&=validateField('firstname',document.getElementById('firstname').value.trim().length>1,'err-firstname');
+  valid&=validateField('lastname',document.getElementById('lastname').value.trim().length>1,'err-lastname');
+  valid&=validateField('email',/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById('email').value),'err-email');
+  valid&=validateField('address',document.getElementById('address').value.trim().length>4,'err-address');
+  valid&=validateField('zip',document.getElementById('zip').value.trim().length>=4,'err-zip');
+  valid&=validateField('city',document.getElementById('city').value.trim().length>1,'err-city');
+  valid&=validateField('country',document.getElementById('country').value!=='','err-country');
+  valid&=validateField('phone',document.getElementById('phone').value.trim().length>8,'err-phone');
+  valid&=validateField('cardholder',document.getElementById('cardholder').value.trim().length>2,'err-cardholder');
+  valid&=validateField('cardnum',document.getElementById('cardnum').value.replace(/\s/g,'').length===16,'err-cardnum');
+  valid&=validateField('expiry',/^\d{2}\/\d{2}$/.test(document.getElementById('expiry').value),'err-expiry');
+  valid&=validateField('cvv',document.getElementById('cvv').value.length>=3,'err-cvv');
+  if(!valid){const f=document.querySelector('.form-group input.error,.form-group select.error');if(f)f.scrollIntoView({behavior:'smooth',block:'center'});return;}
+  const btn=document.querySelector('.btn-pay');
+  btn.textContent='⏳ Processing…';btn.disabled=true;btn.style.background='var(--gray-mid)';
+  setTimeout(()=>{
+    document.getElementById('order-number').textContent='Order #EXC-2026-'+Math.floor(1000+Math.random()*9000);
+    document.getElementById('checkout-form-view').style.display='none';
+    document.getElementById('success-page').classList.add('show');
+    btn.disabled=false;btn.style.background='';btn.textContent='Confirm & Pay';
+    window.scrollTo({top:0,behavior:'smooth'});
+  },2200);
 }
 
-function validateField(id, condition, errId) {
-  const input = document.getElementById(id);
-  const err = document.getElementById(errId);
-  if (!condition) {
-    input.classList.add('error');
-    err.classList.add('show');
-    return false;
-  } else {
-    input.classList.remove('error');
-    err.classList.remove('show');
-    return true;
-  }
+function resetAndHome(){
+  cart=[];
+  updateCartBadge();
+  showPage('home');
 }
 
-function submitPayment() {
-  let valid = true;
-  valid &= validateField('firstname', document.getElementById('firstname').value.trim().length > 1, 'err-firstname');
-  valid &= validateField('lastname', document.getElementById('lastname').value.trim().length > 1, 'err-lastname');
-  valid &= validateField('email', /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById('email').value), 'err-email');
-  valid &= validateField('address', document.getElementById('address').value.trim().length > 4, 'err-address');
-  valid &= validateField('zip', document.getElementById('zip').value.trim().length >= 4, 'err-zip');
-  valid &= validateField('city', document.getElementById('city').value.trim().length > 1, 'err-city');
-  valid &= validateField('country', document.getElementById('country').value !== '', 'err-country');
-  valid &= validateField('phone', document.getElementById('phone').value.trim().length > 8, 'err-phone');
-  valid &= validateField('cardholder', document.getElementById('cardholder').value.trim().length > 2, 'err-cardholder');
-  valid &= validateField('cardnum', document.getElementById('cardnum').value.replace(/\s/g,'').length === 16, 'err-cardnum');
-  valid &= validateField('expiry', /^\d{2}\/\d{2}$/.test(document.getElementById('expiry').value), 'err-expiry');
-  valid &= validateField('cvv', document.getElementById('cvv').value.length >= 3, 'err-cvv');
-
-  if (!valid) {
-    const firstErr = document.querySelector('.form-group input.error, .form-group select.error');
-    if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    return;
-  }
-
-  // Show loading then success
-  const btn = document.querySelector('.btn-pay');
-  btn.textContent = '⏳ Processing…';
-  btn.disabled = true;
-  btn.style.background = 'var(--gray-mid)';
-
-  setTimeout(() => {
-    const orderNum = 'EXC-2026-' + Math.floor(1000 + Math.random() * 9000);
-    document.getElementById('order-number').textContent = 'Commande #' + orderNum;
-    document.getElementById('checkout-form-view').style.display = 'none';
-    const sp = document.getElementById('success-page');
-    sp.classList.add('show');
-    btn.disabled = false;
-    btn.style.background = '';
-    btn.textContent = 'Confirm & Pay';
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, 2200);
+// ===== CONTACT FORM =====
+function submitContact(){
+  let valid=true;
+  valid&=validateField('c-firstname',document.getElementById('c-firstname').value.trim().length>1,'cerr-firstname');
+  valid&=validateField('c-lastname',document.getElementById('c-lastname').value.trim().length>1,'cerr-lastname');
+  valid&=validateField('c-email',/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById('c-email').value),'cerr-email');
+  valid&=validateField('c-subject',document.getElementById('c-subject').value!=='','cerr-subject');
+  valid&=validateField('c-message',document.getElementById('c-message').value.trim().length>10,'cerr-message');
+  if(!valid)return;
+  document.getElementById('contact-form-area').style.display='none';
+  document.getElementById('contact-success').classList.add('show');
 }
 </script>
 </body>
