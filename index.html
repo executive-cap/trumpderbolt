@@ -132,8 +132,8 @@ nav a:hover,nav a.active{color:var(--gold);border-bottom-color:var(--gold);}
 .supplement-item{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--gray-light);cursor:pointer;transition:all .2s;}
 .supplement-item:last-child{border-bottom:none;}
 .supplement-item:hover .supp-check{border-color:var(--gold);}
-.supplement-item.selected .supp-check{background:var(--gold);border-color:var(--gold);}
-.supplement-item.selected .supp-check::after{content:'✓';color:var(--white);font-size:12px;}
+.supplement-item.selected .supp-check{background:var(--gold);border-color:var(--gold);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center;}
+.supplement-item.selected .supp-check::after{content:'';display:none;}
 .supp-check{width:22px;height:22px;border:2px solid var(--gray-light);border-radius:2px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .2s;}
 .supp-info{flex:1;}
 .supp-name{font-family:'Cinzel',serif;font-size:11px;letter-spacing:1px;color:var(--navy);display:block;margin-bottom:3px;}
@@ -223,7 +223,7 @@ nav a:hover,nav a.active{color:var(--gold);border-bottom-color:var(--gold);}
 .secure-badge{display:flex;align-items:center;gap:10px;margin-top:20px;padding:14px;background:rgba(10,22,40,.04);font-size:11px;color:var(--gray-mid);}
 .btn-pay{width:100%;background:var(--navy);color:var(--white);border:none;padding:20px;font-family:'Cinzel',serif;font-size:12px;letter-spacing:4px;text-transform:uppercase;cursor:pointer;margin-top:28px;transition:all .25s;}
 .btn-pay:hover{background:var(--gold);color:var(--navy);}
-.btn-pay::before{content:'🔒 ';font-size:14px;}
+.btn-pay::before{content:'';display:none;}
 .summary-title{font-family:'Cinzel',serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--navy);margin-bottom:28px;padding-bottom:20px;border-bottom:2px solid var(--navy);}
 .summary-item{display:flex;gap:16px;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--gray-light);}
 .summary-img{width:80px;height:80px;object-fit:cover;background:var(--cream);flex-shrink:0;}
@@ -286,6 +286,7 @@ footer{background:var(--navy);padding:60px 40px 30px;}
 .footer-bottom{max-width:1300px;margin:24px auto 0;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:rgba(240,230,200,.3);letter-spacing:1px;}
 
 @keyframes fadeInUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
 
 @media(max-width:768px){
   .products-grid,.products-full,.values-grid,.about-grid,.stats-grid,.checkout-layout,.footer-inner,.cart-layout,.contact-layout{grid-template-columns:1fr;}
@@ -327,7 +328,7 @@ footer{background:var(--navy);padding:60px 40px 30px;}
       <a onclick="showPage('about')" id="nav-about">About</a>
       <a onclick="showPage('contact')" id="nav-contact">Contact</a>
       <button class="cart-nav-btn" onclick="showPage('cart')">
-        🛒 Cart
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg> Cart
         <span class="cart-count" id="cart-count">0</span>
       </button>
     </nav>
@@ -357,7 +358,7 @@ footer{background:var(--navy);padding:60px 40px 30px;}
           <div class="product-tag">Classic Edition</div>
           <div class="product-name">Executive White</div>
           <div class="product-price">$115</div>
-          <span class="product-cta">Discover →</span>
+          <span class="product-cta" style="display:inline-flex;align-items:center;gap:6px;">Discover <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
         </div>
       </div>
       <div class="product-card gold-card" onclick="openDetail('gold')">
@@ -366,7 +367,7 @@ footer{background:var(--navy);padding:60px 40px 30px;}
           <div class="product-tag" style="color:var(--gold-light)">Prestige Edition</div>
           <div class="product-name">Executive Gold</div>
           <div class="product-price">$745</div>
-          <span class="product-cta">Discover →</span>
+          <span class="product-cta" style="display:inline-flex;align-items:center;gap:6px;">Discover <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></span>
         </div>
       </div>
     </div>
@@ -481,28 +482,28 @@ footer{background:var(--navy);padding:60px 40px 30px;}
       <h3>We are at your<br><em>service</em></h3>
       <p>Our private client team is available Monday through Friday to assist you with any question regarding our collection, custom orders, or after-sale services.</p>
       <div class="contact-detail">
-        <div class="contact-icon">📞</div>
+        <div class="contact-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.26h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.63a16 16 0 0 0 6.29 6.29l1.43-1.43a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
         <div class="contact-detail-text">
           <div class="contact-detail-label">Phone</div>
           <div class="contact-detail-val">+1 (202) XXX-XXXX</div>
         </div>
       </div>
       <div class="contact-detail">
-        <div class="contact-icon">✉️</div>
+        <div class="contact-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
         <div class="contact-detail-text">
           <div class="contact-detail-label">Email</div>
           <div class="contact-detail-val">contact@executive-cap.com</div>
         </div>
       </div>
       <div class="contact-detail">
-        <div class="contact-icon">🕐</div>
+        <div class="contact-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
         <div class="contact-detail-text">
           <div class="contact-detail-label">Hours</div>
           <div class="contact-detail-val">Monday – Friday, 9AM to 6PM EST</div>
         </div>
       </div>
       <div class="contact-detail">
-        <div class="contact-icon">📍</div>
+        <div class="contact-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
         <div class="contact-detail-text">
           <div class="contact-detail-label">Address</div>
           <div class="contact-detail-val">1600 Pennsylvania Avenue NW<br>Washington, D.C. 20500</div>
@@ -548,10 +549,10 @@ footer{background:var(--navy);padding:60px 40px 30px;}
           <textarea id="c-message" rows="5" placeholder="How can we assist you?"></textarea>
           <div class="error-msg" id="cerr-message">Message required</div>
         </div>
-        <button class="btn-send" onclick="submitContact()">Send Message</button>
+        <button class="btn-send" onclick="submitContact()" style="display:flex;align-items:center;justify-content:center;gap:10px;"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Send Message</button>
       </div>
       <div class="contact-success" id="contact-success">
-        <div class="contact-success-icon">✓</div>
+        <div class="contact-success-icon" style="color:var(--gold);display:flex;justify-content:center"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
         <h4>Message received</h4>
         <p>Thank you for reaching out. Our team will respond within 24 business hours.</p>
       </div>
@@ -568,7 +569,7 @@ footer{background:var(--navy);padding:60px 40px 30px;}
   <div class="cart-page-inner">
     <!-- Empty state -->
     <div class="cart-empty" id="cart-empty">
-      <div class="cart-empty-icon">🛒</div>
+      <div class="cart-empty-icon" style="color:var(--gray-light);display:flex;justify-content:center"><svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></div>
       <h3>Your cart is empty</h3>
       <p>Discover our exclusive collection and add a piece to your cart.</p>
       <button class="btn-primary" onclick="showPage('products')">Explore the Collection</button>
@@ -588,9 +589,9 @@ footer{background:var(--navy);padding:60px 40px 30px;}
         <button class="btn-checkout" onclick="goToCheckout()">Proceed to Payment</button>
         <button class="btn-continue" onclick="showPage('products')">Continue Shopping</button>
         <div style="margin-top:20px;font-size:11px;color:var(--gray-mid);line-height:1.8">
-          ✓ Certificate of authenticity included<br>
-          ✓ Insured & tracked delivery<br>
-          ✓ Luxury presentation case
+          <span style="display:flex;align-items:center;gap:8px;"><span style="color:var(--gold);display:inline-flex;align-items:center;flex-shrink:0"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Certificate of authenticity included</span><br>
+          <span style="display:flex;align-items:center;gap:8px;"><span style="color:var(--gold);display:inline-flex;align-items:center;flex-shrink:0"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Insured & tracked delivery</span><br>
+          <span style="display:flex;align-items:center;gap:8px;"><span style="color:var(--gold);display:inline-flex;align-items:center;flex-shrink:0"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Luxury presentation case</span>
         </div>
       </div>
     </div>
@@ -603,7 +604,7 @@ footer{background:var(--navy);padding:60px 40px 30px;}
     <div class="checkout-layout">
       <div class="checkout-form-side">
         <div style="margin-bottom:20px">
-          <button onclick="showPage('cart')" style="background:none;border:none;cursor:pointer;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gray-mid);display:flex;align-items:center;gap:8px;">← Back to Cart</button>
+          <button onclick="showPage('cart')" style="background:none;border:none;cursor:pointer;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gray-mid);display:flex;align-items:center;gap:8px;"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg> Back to Cart</button>
         </div>
         <div class="checkout-steps">
           <span class="checkout-step done">Shipping</span>
@@ -635,13 +636,13 @@ footer{background:var(--navy);padding:60px 40px 30px;}
         <h2 class="form-section-title">Payment Information</h2>
         <div class="card-brands"><span class="card-brand active">VISA</span><span class="card-brand active">MASTERCARD</span><span class="card-brand active">AMEX</span><span class="card-brand">PAYPAL</span></div>
         <div class="form-row full"><div class="form-group"><label>Cardholder Name *</label><input type="text" id="cardholder" placeholder="JOHN SMITH"><div class="error-msg" id="err-cardholder">Cardholder name is required</div></div></div>
-        <div class="form-row full"><div class="form-group"><label>Card Number *</label><div class="card-input-wrap"><input type="text" id="cardnum" placeholder="•••• •••• •••• ••••" maxlength="19" oninput="formatCard(this)"><span class="card-icon">💳</span></div><div class="error-msg" id="err-cardnum">Invalid card number (16 digits required)</div></div></div>
+        <div class="form-row full"><div class="form-group"><label>Card Number *</label><div class="card-input-wrap"><input type="text" id="cardnum" placeholder="•••• •••• •••• ••••" maxlength="19" oninput="formatCard(this)"><span class="card-icon"></span></div><div class="error-msg" id="err-cardnum">Invalid card number (16 digits required)</div></div></div>
         <div class="form-row">
           <div class="form-group"><label>Expiration Date *</label><input type="text" id="expiry" placeholder="MM/YY" maxlength="5" oninput="formatExpiry(this)"><div class="error-msg" id="err-expiry">Invalid date</div></div>
-          <div class="form-group"><label>Security Code *</label><div class="card-input-wrap"><input type="text" id="cvv" placeholder="•••" maxlength="4"><span class="card-icon">🔒</span></div><div class="error-msg" id="err-cvv">CVV required (3–4 digits)</div></div>
+          <div class="form-group"><label>Security Code *</label><div class="card-input-wrap"><input type="text" id="cvv" placeholder="•••" maxlength="4"><span class="card-icon" style="opacity:.5;display:flex;align-items:center"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span></div><div class="error-msg" id="err-cvv">CVV required (3–4 digits)</div></div>
         </div>
-        <div class="secure-badge"><span>🔐</span><span>100% secure payment — 256-bit SSL encryption. Your banking details are never stored.</span></div>
-        <button class="btn-pay" onclick="submitPayment()">Confirm & Pay — <span id="pay-total">—</span></button>
+        <div class="secure-badge"><span style="display:flex;align-items:center;color:var(--gold)"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span><span>100% secure payment — 256-bit SSL encryption. Your banking details are never stored.</span></div>
+        <button class="btn-pay" onclick="submitPayment()" style="display:flex;align-items:center;justify-content:center;gap:10px;"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span>Confirm &amp; Pay — <span id="pay-total">—</span></span></button>
       </div>
       <div class="checkout-summary-side">
         <div class="summary-title">Order Summary</div>
@@ -653,13 +654,13 @@ footer{background:var(--navy);padding:60px 40px 30px;}
           <div class="summary-total"><span class="summary-total-label">Total</span><span class="summary-total-amount" id="sum-total">—</span></div>
         </div>
         <div style="margin-top:28px;padding:20px;background:rgba(10,22,40,.04);font-size:11px;color:var(--gray-mid);line-height:1.8">
-          ✓ Certificate of authenticity included<br>✓ Individually engraved serial number<br>✓ Luxury presentation case<br>✓ Insured & tracked delivery
+          <span style="display:flex;align-items:center;gap:8px;"><span style="color:var(--gold);display:inline-flex;align-items:center;flex-shrink:0"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Certificate of authenticity included</span><br><span style="display:flex;align-items:center;gap:8px;"><span style="color:var(--gold);display:inline-flex;align-items:center;flex-shrink:0"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Individually engraved serial number</span><br><span style="display:flex;align-items:center;gap:8px;"><span style="color:var(--gold);display:inline-flex;align-items:center;flex-shrink:0"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Luxury presentation case</span><br><span style="display:flex;align-items:center;gap:8px;"><span style="color:var(--gold);display:inline-flex;align-items:center;flex-shrink:0"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Insured & tracked delivery</span>
         </div>
       </div>
     </div>
   </div>
   <div id="success-page">
-    <div class="success-icon">✓</div>
+    <div class="success-icon"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
     <h2 class="success-title">Order Confirmed</h2>
     <p class="success-sub">Thank you for your trust</p>
     <div class="success-order" id="order-number">Order #EXC-2026-XXXX</div>
@@ -670,7 +671,7 @@ footer{background:var(--navy);padding:60px 40px 30px;}
 
 <!-- PRODUCT DETAIL OVERLAY -->
 <div id="product-detail">
-  <button class="detail-close" onclick="closeDetail()">✕ Close</button>
+  <button class="detail-close" onclick="closeDetail()" style="display:flex;align-items:center;gap:8px;"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> Close</button>
   <div class="detail-inner">
     <div class="detail-gallery">
       <img class="detail-main-img" id="detail-main-img" src="" alt="">
@@ -850,7 +851,7 @@ function showCartToast(name){
     toast.style.cssText='position:fixed;bottom:32px;right:32px;background:var(--navy);color:var(--white);padding:16px 24px;font-family:Cinzel,serif;font-size:11px;letter-spacing:2px;z-index:9999;animation:fadeInUp .3s ease;';
     document.body.appendChild(toast);
   }
-  toast.textContent='✓ '+name+' added to cart';
+  toast.innerHTML='<span style=\'display:inline-flex;align-items:center;gap:8px;\'>&#10003; '+name+' added to cart</span>';
   toast.style.display='block';
   setTimeout(()=>{toast.style.display='none';},2500);
 }
@@ -904,7 +905,7 @@ function renderCheckoutSummary(){
   cart.forEach(item=>{
     total+=item.total;
     html+=`<div class="summary-item"><img class="summary-img" src="${item.product.imgs[0]}" alt="${item.product.name}"><div class="summary-item-info"><div class="summary-item-name">${item.product.name}</div><div class="summary-item-detail">${item.product.ref}</div></div><div class="summary-item-price">$${item.product.price}</div></div>`;
-    item.supplements.forEach(s=>{html+=`<div class="summary-item"><div style="width:80px;height:80px;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0">✦</div><div class="summary-item-info"><div class="summary-item-name">${s.name}</div><div class="summary-item-detail">${s.desc}</div></div><div class="summary-item-price">+$${s.price}</div></div>`;});
+    item.supplements.forEach(s=>{html+=`<div class="summary-item"><div style="width:80px;height:80px;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0"></div><div class="summary-item-info"><div class="summary-item-name">${s.name}</div><div class="summary-item-detail">${s.desc}</div></div><div class="summary-item-price">+$${s.price}</div></div>`;});
   });
   document.getElementById('summary-items').innerHTML=html;
   document.getElementById('sum-subtotal').textContent='$'+total;
@@ -939,7 +940,7 @@ function submitPayment(){
   valid&=validateField('cvv',document.getElementById('cvv').value.length>=3,'err-cvv');
   if(!valid){const f=document.querySelector('.form-group input.error,.form-group select.error');if(f)f.scrollIntoView({behavior:'smooth',block:'center'});return;}
   const btn=document.querySelector('.btn-pay');
-  btn.textContent='⏳ Processing…';btn.disabled=true;btn.style.background='var(--gray-mid)';
+  btn.innerHTML='Processing…';btn.disabled=true;btn.style.background='var(--gray-mid)';
   setTimeout(()=>{
     document.getElementById('order-number').textContent='Order #EXC-2026-'+Math.floor(1000+Math.random()*9000);
     document.getElementById('checkout-form-view').style.display='none';
